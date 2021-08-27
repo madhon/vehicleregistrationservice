@@ -9,7 +9,7 @@ RUN dotnet restore "VehicleRegistrationService.csproj"
 COPY . .
 
 WORKDIR /src
-RUN dotnet build "VehicleRegistrationService.csproj" -c Release --runtime alpine-x64 --no-restore -o /app/build
+RUN dotnet build "VehicleRegistrationService.csproj" -c Release --runtime alpine-x64 --no-restore -p:PublishSingleFile=true -o /app/build
 
 FROM build AS publish
 RUN dotnet publish \
