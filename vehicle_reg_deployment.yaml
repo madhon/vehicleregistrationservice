@@ -14,7 +14,7 @@ apiVersion: apps/v1
 metadata:
   labels:
     app.kubernetes.io/name: vehicleregistration-deployment
-    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/version: "0.12"
     app.kubernetes.io/part-of: vehicleregistration
     app: vehicleregistration
   name: vehicleregistration
@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: vehicleregistration
-          image: vehicleregistrationservice:0.11
+          image: vehicleregistrationservice:0.12
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -59,7 +59,7 @@ apiVersion: v1
 metadata:
   labels:
     app.kubernetes.io/name: vehicleregistration-service
-    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/version: "0.12"
     app.kubernetes.io/part-of: vehicleregistration
   name: vehicleregistration
   namespace: vehicleregistration-namespace  
@@ -78,14 +78,13 @@ apiVersion: networking.k8s.io/v1
 metadata:
   labels:
     app.kubernetes.io/name: vehicleregistration-ingress
-    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/version: "0.12"
     app.kubernetes.io/part-of: vehicleregistration  
   name: vehicleregistration-ingress
   namespace: vehicleregistration-namespace
   annotations:
-    kubernetes.io/ingress.class: traefik
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: traefik
   rules:
     - host: vehicle-127.0.0.1.nip.io
       http:
