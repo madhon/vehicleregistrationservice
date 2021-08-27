@@ -3,7 +3,7 @@ name: Docker Build & Publish to ghcr.io
 on:
   push:
     branches: [ master ]
-    tags: [ 'v*.*.*' ]
+    tags: [ 'v*.*' ]
   pull_request:
 
 env:
