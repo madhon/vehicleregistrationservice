@@ -11,7 +11,7 @@ hpa:
   cpuRequests: 250m
 image:
   name: vehicleregistrationservice
-  version: 0.11
+  version: 0.13
   pullpolicy: IfNotPresent 
   port: 80
   containerPort: 8080
