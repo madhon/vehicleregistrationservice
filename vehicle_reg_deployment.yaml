@@ -1,0 +1,99 @@
+# Namespace
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: vehicleregistration-namespace
+  labels:
+    app: vehicleregistration
+
+# Deployment
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app.kubernetes.io/name: vehicleregistration-deployment
+    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/part-of: vehicleregistration
+    app: vehicleregistration
+  name: vehicleregistration
+  namespace: vehicleregistration-namespace
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1  
+  selector:
+    matchLabels:
+      app: vehicleregistration
+  template:
+    metadata:
+      labels:
+        app: vehicleregistration
+    spec:
+      containers:
+        - name: vehicleregistration
+          image: vehicleregistrationservice:0.11
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 2000
+            allowPrivilegeEscalation: false
+            privileged: false
+            #readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - all            
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 250m
+# Service
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app.kubernetes.io/name: vehicleregistration-service
+    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/part-of: vehicleregistration
+  name: vehicleregistration
+  namespace: vehicleregistration-namespace  
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: vehicleregistration
+
+# nginx based ingress
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  labels:
+    app.kubernetes.io/name: vehicleregistration-ingress
+    app.kubernetes.io/version: "0.11"
+    app.kubernetes.io/part-of: vehicleregistration  
+  name: vehicleregistration-ingress
+  namespace: vehicleregistration-namespace
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: vehicle-127.0.0.1.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vehicleregistration
+                port:
+                  number: 80
