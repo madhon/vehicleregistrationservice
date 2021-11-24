@@ -9,6 +9,9 @@ hpa:
   maxReplicas: 10
   targetCpuPercent: 50
   cpuRequests: 250m
+  memoryRequests: 128Mi
+  cpuLimit: 500m
+  memoryLimit: 1028Mi  
 image:
   name: vehicleregistrationservice
   version: 0.13

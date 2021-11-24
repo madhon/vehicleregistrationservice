@@ -36,11 +36,13 @@ spec:
     spec:
       containers:
         - name: vehicleregistration
-          image: vehicleregistrationservice:0.13
+          #image: vehicleregistrationservice:0.13
+          image: ghcr.io/madhon/vehicleregistrationservice:latest
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
             runAsGroup: 2000
+            fsGroup: 2000
             allowPrivilegeEscalation: false
             privileged: false
             #readOnlyRootFilesystem: true
@@ -51,7 +53,12 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              cpu: 250m
+              cpu: "250m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "1028Mi"
+
 # Service
 ---
 kind: Service
@@ -71,7 +78,7 @@ spec:
   selector:
     app: vehicleregistration
 
-# nginx based ingress
+# ingress
 ---
 kind: Ingress
 apiVersion: networking.k8s.io/v1
@@ -84,7 +91,7 @@ metadata:
   namespace: vehicleregistration-namespace
   annotations:
 spec:
-  ingressClassName: traefik
+  #ingressClassName: traefik
   rules:
     - host: vehicle-127.0.0.1.nip.io
       http:
