@@ -1,5 +1,6 @@
 ﻿namespace VehicleRegistrationService.Controllers
 {
+    using System.Net.Mime;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using VehicleRegistrationService.Model;
@@ -7,22 +8,25 @@
 
     [ApiController]
     [Route("[controller]")]
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
     public class VehicleInfoController : ControllerBase
     {
-        private readonly ILogger<VehicleInfoController> _logger;
-        private readonly IVehicleInfoRepository _vehicleInfoRepository;
+        private readonly ILogger<VehicleInfoController> logger;
+        private readonly IVehicleInfoRepository vehicleInfoRepository;
 
         public VehicleInfoController(ILogger<VehicleInfoController> logger, IVehicleInfoRepository vehicleInfoRepository)
         {
-            _logger = logger;
-            _vehicleInfoRepository = vehicleInfoRepository;
+            this.logger = logger;
+            this.vehicleInfoRepository = vehicleInfoRepository;
         }
 
-        [HttpGet("{licenseNumber}")]
+        [HttpGet("{licenseNumber}", Name = nameof(GetVehicleInfo))]
+        [ProducesResponseType(typeof(VehicleInfo), StatusCodes.Status200OK)]
         public ActionResult<VehicleInfo> GetVehicleInfo(string licenseNumber)
         {
-            _logger.LogInformation($"Retrieving vehicle-info for licensenumber {licenseNumber}");
-            VehicleInfo info = _vehicleInfoRepository.GetVehicleInfo(licenseNumber);
+            logger.LogInformation($"Retrieving vehicle-info for license number {licenseNumber}");
+            var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
             return info;
         }
     }

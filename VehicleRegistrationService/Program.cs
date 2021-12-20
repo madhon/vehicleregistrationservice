@@ -1,6 +1,7 @@
-﻿using VehicleRegistrationService.Repositories;
+﻿var builder = WebApplication.CreateBuilder(args);
 
-var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
@@ -21,6 +22,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 
