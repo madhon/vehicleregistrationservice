@@ -23,9 +23,16 @@
 
         [HttpGet("{licenseNumber}", Name = nameof(GetVehicleInfo))]
         [ProducesResponseType(typeof(VehicleInfo), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<VehicleInfo> GetVehicleInfo(string licenseNumber)
         {
             logger.LogInformation($"Retrieving vehicle-info for license number {licenseNumber}");
+
+            if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Restricted License Plate");
+            }
+
             var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
             return info;
         }
