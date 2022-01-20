@@ -1,8 +1,18 @@
 ﻿using System.Text.Json.Serialization;
 using Hellang.Middleware.ProblemDetails;
 using Hellang.Middleware.ProblemDetails.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.Configure<ForwardedHeadersOptions>(opts =>
+{
+    opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    opts.KnownNetworks.Clear();
+    opts.KnownProxies.Clear();
+});
+
 
 builder.Services.AddProblemDetails(c =>
 {
@@ -35,6 +45,8 @@ builder.Services.AddControllers()
 builder.Services.AddProblemDetailsConventions();
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
 
 app.UseProblemDetails();
 
