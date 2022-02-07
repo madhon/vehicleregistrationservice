@@ -30,11 +30,12 @@
 
             if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
             {
+                logger.LogRestrictedLicensePlateRequested("K27JSD");
                 return BadRequest("Restricted License Plate");
             }
 
             var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
-            return info;
+            return Ok(info);
         }
     }
 }
