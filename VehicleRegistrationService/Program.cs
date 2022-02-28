@@ -13,7 +13,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(opts =>
     opts.KnownProxies.Clear();
 });
 
-
 builder.Services.AddProblemDetails(c =>
 {
     c.IncludeExceptionDetails = (ctx, ex) => builder.Environment.IsDevelopment();
@@ -34,6 +33,8 @@ builder.Services.AddDaprClient(builder => builder
     .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
     .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
+services.AddHealthChecks();
+
 builder.Services.AddControllers()
     .AddJsonOptions(opt =>
     {
@@ -44,7 +45,9 @@ builder.Services.AddControllers()
 
 builder.Services.AddProblemDetailsConventions();
 
+
 var app = builder.Build();
+
 
 app.UseForwardedHeaders();
 
@@ -59,6 +62,10 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseRouting();
+
+app.MapHealthChecks("/health/startup");
+app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
 
 app.MapControllers();
 
