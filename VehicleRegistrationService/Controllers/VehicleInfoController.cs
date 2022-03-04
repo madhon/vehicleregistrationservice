@@ -24,7 +24,7 @@
         [HttpGet("{licenseNumber}", Name = nameof(GetVehicleInfo))]
         [ProducesResponseType(typeof(VehicleInfo), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<VehicleInfo> GetVehicleInfo(string licenseNumber)
+        public IActionResult GetVehicleInfo(string licenseNumber)
         {
             logger.LogLicensePlateRetrieved(licenseNumber);
 
