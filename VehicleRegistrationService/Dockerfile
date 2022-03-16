@@ -29,7 +29,7 @@ RUN addgroup -g 2000 app\
   --uid 1000 --ingroup app \
   --gecos '' app \
   && chown -R app /app \
-  && apk add --upgrade --no-cache apk-tools \
+  && apk add --upgrade --no-cache apk-tools openssl \
   && apk add --no-cache icu-libs
 
 USER app
