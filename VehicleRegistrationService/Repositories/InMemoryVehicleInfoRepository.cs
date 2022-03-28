@@ -32,7 +32,6 @@
             { "Ford", new[] { "Focus", "Ka", "C-Max", "Fusion", "Fiesta", "Mondeo", "Kuga" } },
             { "BMW", new[] { "1 Series", "2 Series", "3 Series", "5 Series", "7 Series", "X5" } },
             { "Fiat", new[] { "500", "Panda", "Punto", "Tipo", "Multipla" } },
-            { "Toyota", new[] { "Camry", "Corolla", "Prius", "Yaris", "4Runner", "C-HR" } },
             { "Opel", new[] { "Karl", "Corsa", "Astra", "Crossland X", "Insignia" } }
         };
 
