@@ -1,1 +1,2 @@
-﻿global using VehicleRegistrationService.Repositories;
+﻿global using VehicleRegistrationService;
+global using VehicleRegistrationService.Repositories;

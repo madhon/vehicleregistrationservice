@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
+AppVersionInfo.InitialiseBuildInfoGivenPath(Directory.GetCurrentDirectory());
 
 builder.Services.Configure<ForwardedHeadersOptions>(opts =>
 {
