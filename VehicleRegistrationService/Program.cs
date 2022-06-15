@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using FluentValidation.AspNetCore;
 using Hellang.Middleware.ProblemDetails;
 using Hellang.Middleware.ProblemDetails.Mvc;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -28,12 +29,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
-var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "3602";
-var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "60002";
-
-builder.Services.AddDaprClient(builder => builder
-    .UseHttpEndpoint($"http://localhost:{daprHttpPort}")
-    .UseGrpcEndpoint($"http://localhost:{daprGrpcPort}"));
 
 builder.Services.AddHealthChecks();
 
@@ -42,8 +37,13 @@ builder.Services.AddControllers()
     {
         opt.JsonSerializerOptions.WriteIndented = builder.Environment.IsDevelopment();
         opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    })
-    .AddDapr();
+    });
+
+builder.Services.AddFluentValidation(x =>
+{
+    x.RegisterValidatorsFromAssemblyContaining<Program>();
+    x.DisableDataAnnotationsValidation = true;
+});
 
 builder.Services.AddProblemDetailsConventions();
 
