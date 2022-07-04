@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using AppBuildInfo = BuildInfo;
 
-    [ApiController]
+    [ApiController, AllowAnonymous]
     public class BuildInfoController : ControllerBase
     {
         [AllowAnonymous]
