@@ -1,12 +1,13 @@
 ﻿namespace VehicleRegistrationService.Controllers
 {
     using System.Net.Mime;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using VehicleRegistrationService.Model;
     using VehicleRegistrationService.Repositories;
 
-    [ApiController]
+    [ApiController, Authorize]
     [Route("[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
