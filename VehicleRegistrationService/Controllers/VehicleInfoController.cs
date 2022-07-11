@@ -1,17 +1,10 @@
 ﻿namespace VehicleRegistrationService.Controllers
 {
-    using System.Net.Mime;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using VehicleRegistrationService.Model;
-    using VehicleRegistrationService.Repositories;
-
     [ApiController, Authorize]
     [Route("[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
-    public class VehicleInfoController : ControllerBase
+    public partial class VehicleInfoController : ControllerBase
     {
         private readonly ILogger<VehicleInfoController> logger;
         private readonly IVehicleInfoRepository vehicleInfoRepository;
@@ -27,16 +20,26 @@
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetVehicleInfo(string licenseNumber)
         {
-            logger.LogLicensePlateRetrieved(licenseNumber);
+            LogLicensePlateRetrieved(licenseNumber);
 
             if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
             {
-                logger.LogRestrictedLicensePlateRequested("K27JSD");
+                LogRestrictedLicensePlateRequested("K27JSD");
                 return BadRequest("Restricted License Plate");
             }
 
             var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
             return Ok(info);
         }
+        
+        [LoggerMessage(eventId: 1, 
+            level: LogLevel.Information,
+            message: "Retrieving vehicle info for license number {registration}")]
+        partial void LogLicensePlateRetrieved(string registration);
+
+        [LoggerMessage(eventId: 2,
+            level: LogLevel.Information,
+            message: "Request for restricted license number {registration}")]
+        partial void LogRestrictedLicensePlateRequested(string registration);
     }
 }
