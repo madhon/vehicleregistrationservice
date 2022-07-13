@@ -34,6 +34,18 @@ spec:
       labels:
         app: vehicleregistration
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - all
+        privileged: false
+        runAsGroup: 102000
+        runAsNonRoot: true
+        runAsUser: 101000
+        seccompProfile:
+          type: RuntimeDefault      
       containers:
       - image: ghcr.io/madhon/vehicleregistrationservice:latest
         livenessProbe:
@@ -65,9 +77,11 @@ spec:
             drop:
             - all
           privileged: false
-          runAsGroup: 2000
+          runAsGroup: 102000
           runAsNonRoot: true
-          runAsUser: 1000
+          runAsUser: 101000
+          seccompProfile:
+            type: RuntimeDefault
         startupProbe:
           failureThreshold: 30
           httpGet:
