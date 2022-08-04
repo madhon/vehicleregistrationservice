@@ -1,5 +1,7 @@
 ﻿namespace VehicleRegistrationService.Controllers
 {
+    using System.Security.Claims;
+
     [ApiController, Authorize]
     [Route("[controller]")]
     [Produces(MediaTypeNames.Application.Json)]
@@ -21,6 +23,8 @@
         public IActionResult GetVehicleInfo(string licenseNumber)
         {
             LogLicensePlateRetrieved(licenseNumber);
+
+            var name = User.FindFirst(ClaimTypes.Name).Value;
 
             if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
             {
