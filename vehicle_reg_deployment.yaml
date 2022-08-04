@@ -36,11 +36,11 @@ spec:
     spec:
       automountServiceAccountToken: false
       securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-          - all
-        privileged: false
+#        allowPrivilegeEscalation: false
+#        capabilities:
+#          drop:
+#          - all
+#        privileged: false
         runAsGroup: 102000
         runAsNonRoot: true
         runAsUser: 101000
@@ -107,6 +107,7 @@ spec:
     targetPort: 8080
   selector:
     app: vehicleregistration
+  #type: LoadBalancer
 
 
 # ingress
