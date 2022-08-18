@@ -16,6 +16,7 @@
             Get("/VehicleInfo/{LicenseNumber}");
         }
 
+#pragma warning disable AsyncFixer01 // Unnecessary async/await usage
         public override async Task HandleAsync(VehicleInfoRequest req, CancellationToken ct)
         {
             LogLicensePlateRetrieved(req.LicenseNumber);
@@ -29,6 +30,7 @@
             var info = vehicleInfoRepository.GetVehicleInfo(req.LicenseNumber);
             await SendAsync(info, cancellation: ct).ConfigureAwait(false);
         }
+#pragma warning restore AsyncFixer01 // Unnecessary async/await usage
 
 
         [LoggerMessage(eventId: 1,

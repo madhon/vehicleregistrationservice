@@ -26,13 +26,19 @@
             }
 
             var now = DateTime.UtcNow;
+            var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
 
             var jwtToken = JWTBearer.CreateToken(
                 signingKey: jwtOptions.Secret,
                 expireAt: now.AddMinutes(10),
                 issuer: jwtOptions.ValidIssuer,
                 audience: jwtOptions.ValidAudience,
-                claims: new[] { (ClaimTypes.Name, req.UserName), (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) }
+                claims: new[]
+                {
+                    (ClaimTypes.Name, req.UserName), 
+                    (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), 
+                    (JwtRegisteredClaimNames.Nbf, unixTimeSeconds.ToString())
+                }
             );
 
             await SendAsync(new { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
