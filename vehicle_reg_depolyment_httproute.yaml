@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  annotations: null
+  labels:
+    app.kubernetes.io/name: vehicleregistration-httproute
+    app.kubernetes.io/part-of: vehicleregistration
+    app.kubernetes.io/version: "0.13"
+  name: vehicleregistration-httproute
+  namespace: vehicleregistration-namespace
+spec:
+  parentRefs:
+  - name: contour
+  hostnames:
+  - "vehicle-127.0.0.1.nip.io"
+  rules:
+  - matches:
+    - path:
+        value: /
+    backendRefs:
+    - name: vehicleregistration
+      port: 80
