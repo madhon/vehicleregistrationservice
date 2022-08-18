@@ -24,6 +24,7 @@
     <PackageReference Include="FastEndpoints.Security" Version="4.4.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="6.0.0" />
   </ItemGroup>
