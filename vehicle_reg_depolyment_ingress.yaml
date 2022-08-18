@@ -1,0 +1,24 @@
+# ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations: null
+  labels:
+    app.kubernetes.io/name: vehicleregistration-ingress
+    app.kubernetes.io/part-of: vehicleregistration
+    app.kubernetes.io/version: "0.13"
+  name: vehicleregistration-ingress
+  namespace: vehicleregistration-namespace
+spec:
+  rules:
+  - host: vehicle-127.0.0.1.nip.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: vehicleregistration
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
