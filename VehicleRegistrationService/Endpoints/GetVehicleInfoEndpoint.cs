@@ -1,6 +1,6 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    public partial class GetVehicleInfoEndpoint : Endpoint<VehicleInfoRequest>
+    public partial class GetVehicleInfoEndpoint : Endpoint<VehicleInfoRequest, VehicleInfo>
     {
         private readonly ILogger<GetVehicleInfoEndpoint> logger;
         private readonly IVehicleInfoRepository vehicleInfoRepository;
@@ -14,6 +14,19 @@
         public override void Configure()
         {
             Get("/VehicleInfo/{LicenseNumber}");
+            Summary(s =>
+            {
+                s.Summary = "Retrieve vehicle info";
+                s.Description = "Retrieves info about the specified vehicle";
+                s.ExampleRequest = new VehicleInfo()
+                {
+                    Brand = "BMW", 
+                    Model = "X5", 
+                    OwnerEmail = "Test@test.com", 
+                    OwnerName = "Test",
+                    VehicleId = "BMWX5"
+                };
+            });
         }
 
 #pragma warning disable AsyncFixer01 // Unnecessary async/await usage

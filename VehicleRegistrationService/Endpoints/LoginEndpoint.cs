@@ -2,7 +2,7 @@
 {
     using System.IdentityModel.Tokens.Jwt;
 
-    public class LoginEndpoint : Endpoint<Login>
+    public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
     {
         private readonly JwtOptions jwtOptions;
 
@@ -18,7 +18,7 @@
         }
 
 #pragma warning disable AsyncFixer01 // Unnecessary async/await usage
-        public override async Task HandleAsync(Login req, CancellationToken ct)
+        public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
         {
             if (!req.UserName.Equals("jon") && !req.Password.Equals("Password1"))
             {
@@ -41,7 +41,7 @@
                 }
             );
 
-            await SendAsync(new { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
+            await SendAsync(new  LoginResponse() { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
         }
 #pragma warning restore AsyncFixer01 // Unnecessary async/await usage
     }

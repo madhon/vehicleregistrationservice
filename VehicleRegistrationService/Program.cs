@@ -64,9 +64,6 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseOpenApi();
-app.UseSwaggerUi3();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -74,6 +71,10 @@ app.UseFastEndpoints(c =>
 {
     c.ShortEndpointNames = true;
 });
+
+
+app.UseOpenApi();
+app.UseSwaggerUi3();
 
 app.MapHealthChecks("/health/startup");
 app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
