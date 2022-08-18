@@ -1,12 +1,7 @@
-﻿using FastEndpoints;
-using FastEndpoints.Security;
-using FastEndpoints.Swagger;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
-
-AppVersionInfo.InitialiseBuildInfoGivenPath(Directory.GetCurrentDirectory());
 
 builder.Services.Configure<ForwardedHeadersOptions>(opts =>
 {
@@ -25,7 +20,10 @@ builder.Services.AddFastEndpoints(o =>
     o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
 });
 
-builder.Services.AddAuthenticationJWTBearer(builder.Configuration["JWT:Secret"]);
+builder.Services.AddAuthenticationJWTBearer(builder.Configuration["JWT:Secret"], 
+    builder.Configuration["JWT:ValidIssuer"], 
+    builder.Configuration["JWT:ValidAudience"]);
+
 builder.Services.AddSwaggerDoc(shortSchemaNames: true);
 
 builder.Services.Configure<JwtOptions>(

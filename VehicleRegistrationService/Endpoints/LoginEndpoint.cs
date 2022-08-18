@@ -1,8 +1,6 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    using FastEndpoints;
-    using FastEndpoints.Security;
-    using Microsoft.Extensions.Options;
+    using System.IdentityModel.Tokens.Jwt;
 
     public class LoginEndpoint : Endpoint<Login>
     {
@@ -19,6 +17,7 @@
             AllowAnonymous();
         }
 
+#pragma warning disable AsyncFixer01 // Unnecessary async/await usage
         public override async Task HandleAsync(Login req, CancellationToken ct)
         {
             if (!req.UserName.Equals("jon") && !req.Password.Equals("Password1"))
@@ -31,10 +30,13 @@
             var jwtToken = JWTBearer.CreateToken(
                 signingKey: jwtOptions.Secret,
                 expireAt: now.AddMinutes(10),
-                claims: new[] { ("Username", req.UserName) }
+                issuer: jwtOptions.ValidIssuer,
+                audience: jwtOptions.ValidAudience,
+                claims: new[] { (ClaimTypes.Name, req.UserName), (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) }
             );
 
             await SendAsync(new { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
         }
+#pragma warning restore AsyncFixer01 // Unnecessary async/await usage
     }
 }

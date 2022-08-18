@@ -1,8 +1,5 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    using FastEndpoints;
-
-
     public partial class GetVehicleInfoEndpoint : Endpoint<VehicleInfoRequest>
     {
         private readonly ILogger<GetVehicleInfoEndpoint> logger;
