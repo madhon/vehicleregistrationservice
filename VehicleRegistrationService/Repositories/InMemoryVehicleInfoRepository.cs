@@ -46,6 +46,7 @@
             // simulate slow IO
             Thread.Sleep(_rnd.Next(5, 200));
 
+
             // get random vehicle info
             var brand = GetRandomBrand();
             var model = GetRandomModel(brand);
@@ -53,6 +54,18 @@
             // get random owner info
             var ownerName = nameGenerator.GenerateRandomFirstAndLastName();
             var ownerEmail = $"{ownerName.ToLowerInvariant().Replace(' ', '.')}@outlook.com";
+
+            if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
+            {
+                brand = "Audi";
+                model = "A3";
+            }
+
+            if (licenseNumber.Equals("K27ASD", StringComparison.OrdinalIgnoreCase))
+            {
+                brand = "Toyota";
+                model = "CHR";
+            }
 
             // return info
             return new VehicleInfo

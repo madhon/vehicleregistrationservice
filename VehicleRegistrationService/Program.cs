@@ -69,7 +69,7 @@ app.UseAuthorization();
 
 app.UseFastEndpoints(c =>
 {
-    c.ShortEndpointNames = true;
+    c.Endpoints.ShortNames = true;
 });
 
 
