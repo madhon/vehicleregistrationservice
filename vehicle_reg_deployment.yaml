@@ -109,4 +109,4 @@ spec:
     targetPort: 8080
   selector:
     app: vehicleregistration
-  type: LoadBalancer
+  #type: LoadBalancer
