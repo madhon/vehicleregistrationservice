@@ -20,7 +20,7 @@
 #pragma warning disable AsyncFixer01 // Unnecessary async/await usage
         public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
         {
-            if (!req.UserName.Equals("jon") && !req.Password.Equals("Password1"))
+            if (!req.UserName!.Equals("jon") && !req.Password!.Equals("Password1"))
             {
                 ThrowError("The supplied credentials are invalid!");
             }
