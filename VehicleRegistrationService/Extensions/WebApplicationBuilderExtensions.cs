@@ -1,6 +1,7 @@
 ﻿namespace VehicleRegistrationService
 {
     using Microsoft.AspNetCore.HttpOverrides;
+    using Microsoft.AspNetCore.Server.IISIntegration;
 
     public static class WebApplicationBuilderExtensions
     {
@@ -34,7 +35,7 @@
 
             services.Configure<JwtOptions>(
                 configuration.GetSection("JWT"));
-
+            services.AddScoped(cfg => cfg!.GetService<IOptions<JwtOptions>>()!.Value);
 
             //builder.Services.AddAuthentication(opt => {
             //        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

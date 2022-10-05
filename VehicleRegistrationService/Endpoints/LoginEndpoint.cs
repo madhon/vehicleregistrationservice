@@ -6,9 +6,9 @@
     {
         private readonly JwtOptions jwtOptions;
 
-        public LoginEndpoint(IOptions<JwtOptions> jwtOptions)
+        public LoginEndpoint(JwtOptions jwtOptions)
         {
-            this.jwtOptions = jwtOptions.Value;
+            this.jwtOptions = jwtOptions;
         }
 
         public override void Configure()
