@@ -4,6 +4,11 @@
 
     public class VehicleInfoRequest
     {
+        public VehicleInfoRequest()
+        {
+            // needed for fast endpoints
+        }
+
         /// <summary>
         /// The license plate to request info about
         /// </summary>
