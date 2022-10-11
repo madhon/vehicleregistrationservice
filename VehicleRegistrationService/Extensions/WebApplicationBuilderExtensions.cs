@@ -1,8 +1,7 @@
 ﻿namespace VehicleRegistrationService
 {
     using Microsoft.AspNetCore.HttpOverrides;
-    using Microsoft.AspNetCore.Server.IISIntegration;
-
+    
     public static class WebApplicationBuilderExtensions
     {
         public static void RegisterServices(this WebApplicationBuilder builder)
