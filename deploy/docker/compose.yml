@@ -1,0 +1,60 @@
+name: vehicleregstack
+
+services:
+
+ vrsvc:
+  build: 
+    context: ../../VehicleRegistrationService
+    dockerfile: Dockerfile
+  restart: unless-stopped
+  container_name: vrsvc
+  networks:
+   - vrsvcnet
+  labels:
+   - "traefik.enable=true"
+   - "traefik.http.routers.vrsvc.rule=Host(`vehiclereg.192.168.1.205.nip.io`)"
+   - "traefik.http.routers.vrsvc.entrypoints=http"
+
+ envoyproxy:
+  image: envoyproxy/envoy-distroless:v1.24.0
+  pull_policy: always
+  restart: unless-stopped
+  container_name: envoyproxy
+  ports:
+   - "9901:9901"
+   - "80:10000"
+  networks:
+   - vrsvcnet
+  volumes:
+   - ./envoy.yml:/etc/envoy/envoy.yaml
+
+
+networks:
+ vrsvcnet : {}
+
+
+# reverseproxy:
+#  image: traefik:v2.9
+#  pull_policy: always
+#  restart: unless-stopped
+#  container_name: traefikproxy
+#  command:
+#   - --api=true
+#   - --api.insecure=true
+#   - --api.dashboard=true
+#   - --providers.docker=true
+#   - --entryPoints.http.address=:80
+#   - --entryPoints.https.address=:443
+#  ports:
+#   - "80:80"
+#   - "443:443"
+#  networks:
+#   - vrsvcnet
+#  volumes:
+#   - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#  labels:
+#   - "traefik.enable=true"
+#   - "traefik.port=8080"
+#   - "traefik.http.routers.api.rule=Host(`traefik.192.168.1.205.nip.io`)"
+#   - "traefik.http.routers.api.entrypoints=http"
+#   - "traefik.http.routers.api.service=api@internal"
