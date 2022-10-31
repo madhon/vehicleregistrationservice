@@ -50,6 +50,9 @@ spec:
           type: RuntimeDefault      
       containers:
       - image: ghcr.io/madhon/vehicleregistrationservice:latest
+        env:
+        - name: COMPlus_EnableDiagnostics
+          value: "0"
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -70,12 +73,14 @@ spec:
           limits:
             cpu: 500m
             memory: 1028Mi
+            ephemeral-storage: 100Mi
           requests:
             cpu: 250m
             memory: 128Mi
+            ephemeral-storage: 50Mi
         securityContext:
           allowPrivilegeEscalation: false
-          #readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: true
           capabilities:
             drop:
             - all
@@ -111,3 +116,23 @@ spec:
   selector:
     app: vehicleregistration
   #type: LoadBalancer
+
+# Network Policy
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  labels:
+    app.kubernetes.io/name: vehicleregistration-service
+    app.kubernetes.io/part-of: vehicleregistration
+    app.kubernetes.io/version: "0.13"  
+  name: vehicleregistration-allow-external
+  namespace: vehicleregistration-namespace
+spec:
+  podSelector:
+    matchLabels:
+      app: vehicleregistration
+  ingress:
+  - from: []
+    ports:
+    - port: 80
