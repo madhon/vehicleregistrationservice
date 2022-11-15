@@ -17,7 +17,7 @@ RUN dotnet publish \
   --runtime alpine-x64 \
   --self-contained true \
   -c Release \
-  /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=partial \
+  /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=full \
   -o /app/publish
 
 
