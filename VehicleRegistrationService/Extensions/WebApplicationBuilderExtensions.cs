@@ -21,10 +21,10 @@
 
             services.AddHealthChecks();
 
-            services.AddFastEndpoints(o =>
-            {
-                o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
-            });
+            //services.AddFastEndpoints(o =>
+            //{
+            //    o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
+            //});
 
             services.AddAuthenticationJWTBearer(configuration["JWT:Secret"],
                 configuration["JWT:ValidIssuer"],
