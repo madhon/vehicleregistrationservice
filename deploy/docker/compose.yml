@@ -22,7 +22,7 @@ services:
   container_name: envoyproxy
   ports:
    - "9901:9901"
-   - "80:10000"
+   - "81:10000"
   networks:
    - vrsvcnet
   volumes:
