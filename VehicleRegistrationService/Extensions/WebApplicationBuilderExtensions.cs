@@ -1,5 +1,7 @@
 ﻿namespace VehicleRegistrationService
 {
+    using System.Text;
+    using FastEndpoints.Security;
     using Microsoft.AspNetCore.HttpOverrides;
     
     public static class WebApplicationBuilderExtensions
@@ -16,7 +18,6 @@
                 opts.KnownProxies.Clear();
             });
 
-
             services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
             services.AddHealthChecks();
@@ -26,15 +27,24 @@
                 o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
             });
 
-            services.AddAuthenticationJWTBearer(configuration["JWT:Secret"],
-                configuration["JWT:ValidIssuer"],
-                configuration["JWT:ValidAudience"]);
-
-            services.AddSwaggerDoc(shortSchemaNames: true);
+            var jwtOpts = new JwtOptions();
+            configuration.Bind(JwtOptions.Jwt, jwtOpts);
+            services.AddSingleton(Options.Create(jwtOpts));
 
             services.Configure<JwtOptions>(
                 configuration.GetSection("JWT"));
             services.AddScoped(cfg => cfg!.GetService<IOptions<JwtOptions>>()!.Value);
+
+            var secret = jwtOpts.Secret;
+            var key = Encoding.ASCII.GetBytes(secret);
+
+            services.AddJWTBearerAuth(secret, JWTBearer.TokenSigningStyle.Symmetric, opts =>
+            {
+                opts.ValidIssuer = jwtOpts.ValidIssuer;
+                opts.ValidAudience = jwtOpts.ValidAudience;
+            });
+
+            services.AddSwaggerDoc(shortSchemaNames: true);
 
             //builder.Services.AddAuthentication(opt => {
             //        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
