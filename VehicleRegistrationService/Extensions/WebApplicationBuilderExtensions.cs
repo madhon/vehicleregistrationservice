@@ -20,6 +20,18 @@
 
             services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
+
             services.AddHealthChecks();
 
             services.AddFastEndpoints(o =>

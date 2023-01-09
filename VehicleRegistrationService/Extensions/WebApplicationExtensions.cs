@@ -8,6 +8,9 @@
         {
             app.UseForwardedHeaders();
 
+
+            app.UseCors("AllowAll");
+
             app.UseStaticFiles();
 
             if (app.Environment.IsDevelopment())
