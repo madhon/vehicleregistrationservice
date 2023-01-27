@@ -8,6 +8,8 @@
         {
             app.UseForwardedHeaders();
 
+            app.UseSerilogRequestLogging();
+
 
             app.UseCors("AllowAll");
 
