@@ -17,9 +17,10 @@ RUN dotnet publish \
   --runtime alpine-x64 \
   --self-contained true \
   -c Release \
-  /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=partial \
+  /p:PublishSingleFile=true \
   -o /app/publish
 
+# /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=partial \
 
 FROM  mcr.microsoft.com/dotnet/runtime-deps:$VERSION
 RUN addgroup -g 2000 app\
