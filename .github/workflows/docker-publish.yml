@@ -37,6 +37,6 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
-          context: ./vehicleregistrationservice
+          context: ./VehicleRegistrationService
           push: true
           tags: ghcr.io/madhon/vehicleregistrationservice:latest
