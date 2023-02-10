@@ -67,6 +67,8 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
+          echo "::set-output name=digest::$(docker inspect ${{ steps.build.outputs.digest }} | jq -r '.[].RepoDigests[0] | split("@") | .[1]')"
+
           echo "$COSIGN_KEY" > cosign.key
           cosign sign --key cosign.key $IMAGE_ID:$VERSION
 
