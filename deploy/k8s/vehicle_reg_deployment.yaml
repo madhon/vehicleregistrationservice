@@ -132,7 +132,14 @@ spec:
   podSelector:
     matchLabels:
       app: vehicleregistration
+  policyTypes:
+    - Ingress
+    - Egress      
   ingress:
   - from: []
     ports:
     - port: 80
+  egress:
+  - to: []
+    ports:
+    - port: 80    
