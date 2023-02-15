@@ -20,14 +20,14 @@
 
   <ItemGroup>
     <PackageReference Include="Dapr.AspNetCore" Version="1.9.0" />
-    <PackageReference Include="FastEndpoints" Version="5.7.1" />
-    <PackageReference Include="FastEndpoints.Generator" Version="5.7.1">
+    <PackageReference Include="FastEndpoints" Version="5.7.2" />
+    <PackageReference Include="FastEndpoints.Generator" Version="5.7.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FastEndpoints.Security" Version="5.7.1" />
-    <PackageReference Include="FastEndpoints.Swagger" Version="5.7.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
+    <PackageReference Include="FastEndpoints.Security" Version="5.7.2" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.7.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
