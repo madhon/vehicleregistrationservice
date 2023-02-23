@@ -31,6 +31,8 @@
                 });
             });
 
+            services.AddResponseCaching();
+            services.AddResponseCompression();
 
             services.AddHealthChecks();
 
@@ -56,7 +58,15 @@
                 opts.ValidAudience = jwtOpts.ValidAudience;
             });
 
-            services.AddSwaggerDoc(shortSchemaNames: true);
+            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+                {
+                    s.DocumentName = "v1.0";
+                    s.Title = "Vehicle Registration API";
+                    s.Version = "v1.0";
+                    
+                },
+                shortSchemaNames: true, 
+                addJWTBearerAuth: true);
 
             //builder.Services.AddAuthentication(opt => {
             //        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

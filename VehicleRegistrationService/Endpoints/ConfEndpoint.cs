@@ -6,6 +6,7 @@
     {
         public override void Configure()
         {
+            Version(1);
             Get("/conf");
             AllowAnonymous();
         }

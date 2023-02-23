@@ -13,18 +13,23 @@
 
         public override void Configure()
         {
+            Version(1);
             Get("/VehicleInfo/{LicenseNumber}");
+            RequestBinder(new RequestBinder<VehicleInfoRequest>(BindingSource.RouteValues));
+            Description(b=> b
+                .Accepts<VehicleInfoRequest>("application/json")
+                .Produces<VehicleInfo>(200, "application/json")
+                .Produces(400)
+                .Produces(403),
+                clearDefaults: true);
             Summary(s =>
             {
                 s.Summary = "Retrieve vehicle info";
                 s.Description = "Retrieves info about the specified vehicle";
-                s.ExampleRequest = new VehicleInfo()
+                s.RequestParam(r=>r.LicenseNumber, "License Plate");
+                s.ExampleRequest = new VehicleInfoRequest()
                 {
-                    Brand = "BMW", 
-                    Model = "X5", 
-                    OwnerEmail = "Test@test.com", 
-                    OwnerName = "Test",
-                    VehicleId = "BMWX5"
+                    LicenseNumber = "Test"
                 };
             });
         }

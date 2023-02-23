@@ -13,6 +13,7 @@
 
         public override void Configure()
         {
+            Version(1);
             Post("/login");
             AllowAnonymous();
         }
