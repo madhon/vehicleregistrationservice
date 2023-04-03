@@ -14,7 +14,7 @@
         public override async Task HandleAsync(CancellationToken ct)
         {
             IConfiguration? allConfig = Resolve<IConfiguration>();
-            IEnumerable<KeyValuePair<string, string>> configKv = allConfig.AsEnumerable();
+            IEnumerable<KeyValuePair<string, string?>> configKv = allConfig.AsEnumerable();
 
             var jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
 
