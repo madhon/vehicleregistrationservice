@@ -17,7 +17,6 @@
             Get("/VehicleInfo/{LicenseNumber}");
             RequestBinder(new RequestBinder<VehicleInfoRequest>(BindingSource.RouteValues));
             Description(b=> b
-                .Accepts<VehicleInfoRequest>("application/json")
                 .Produces<VehicleInfo>(200, "application/json")
                 .Produces(400)
                 .Produces(403),

@@ -58,15 +58,18 @@
                 opts.ValidAudience = jwtOpts.ValidAudience;
             });
 
-            services.AddSwaggerDoc(maxEndpointVersion: 1, settings: s =>
+            services.SwaggerDocument(o =>
+            {
+                o.MaxEndpointVersion = 1;
+                o.EnableJWTBearerAuth = true;
+                o.ShortSchemaNames = true;
+                o.DocumentSettings = d =>
                 {
-                    s.DocumentName = "v1.0";
-                    s.Title = "Vehicle Registration API";
-                    s.Version = "v1.0";
-                    
-                },
-                shortSchemaNames: true, 
-                addJWTBearerAuth: true);
+                    d.DocumentName = "v1.0";
+                    d.Title = "v1.0";
+                    d.Version = "v1.0";
+                };
+            });
 
             //builder.Services.AddAuthentication(opt => {
             //        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -19,24 +19,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="RandomNameGeneratorLibrary\Resources\dist.all.last.stripped" />
+    <None Remove="RandomNameGeneratorLibrary\Resources\dist.female.first.stripped" />
+    <None Remove="RandomNameGeneratorLibrary\Resources\dist.male.first.stripped" />
+    <None Remove="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.all.last.stripped" />
+    <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.female.first.stripped" />
+    <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.male.first.stripped" />
+    <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapr.AspNetCore" Version="1.10.0" />
-    <PackageReference Include="FastEndpoints" Version="5.8.1" />
-    <PackageReference Include="FastEndpoints.Generator" Version="5.8.1">
+    <PackageReference Include="FastEndpoints" Version="5.10.0" />
+    <PackageReference Include="FastEndpoints.Generator" Version="5.10.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FastEndpoints.Security" Version="5.8.1" />
-    <PackageReference Include="FastEndpoints.Swagger" Version="5.8.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.4" />
+    <PackageReference Include="FastEndpoints.Security" Version="5.10.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.30.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.2" />
+    <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.1.0" />
   </ItemGroup>
 
 </Project>

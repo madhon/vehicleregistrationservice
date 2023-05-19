@@ -9,7 +9,8 @@
 
             builder.Host.UseSerilog((context, loggerConfiguration) =>
             {
-                loggerConfiguration.ReadFrom.Configuration(context.Configuration, sectionName: sectionName);
+                var options = new ConfigurationReaderOptions { SectionName = sectionName };
+                loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
 
                 loggerConfiguration
                     .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
@@ -40,6 +41,7 @@
         {
             public bool UseConsole { get; set; } = true;
             public string? SeqUrl { get; set; }
+            public string? LokiUrl { get; set; }
 
             public string LogTemplate { get; set; } =
                 "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";

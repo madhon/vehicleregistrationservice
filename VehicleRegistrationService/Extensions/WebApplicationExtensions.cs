@@ -33,6 +33,7 @@
                 c.Versioning.Prefix = "v";
                 c.Versioning.PrependToRoute = true;
                 c.Versioning.DefaultVersion = 1;
+                c.Errors.UseProblemDetails();
             });
 
 
