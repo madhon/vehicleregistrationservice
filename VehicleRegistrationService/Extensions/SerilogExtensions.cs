@@ -9,7 +9,11 @@
 
             builder.Host.UseSerilog((context, loggerConfiguration) =>
             {
-                var options = new ConfigurationReaderOptions { SectionName = sectionName };
+                var options = new ConfigurationReaderOptions()
+                {
+                    SectionName = sectionName
+                };
+
                 loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
 
                 loggerConfiguration
