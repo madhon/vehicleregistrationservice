@@ -23,7 +23,7 @@
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", builder =>
+                options.AddPolicy(CorsPolicyName.AllowAll, builder =>
                 {
                     builder.AllowAnyOrigin()
                         .AllowAnyMethod()

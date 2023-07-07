@@ -11,13 +11,10 @@
 
             app.UseSerilogRequestLogging();
 
-
-            app.UseResponseCaching();
-            app.UseResponseCompression();
-
-            app.UseCors("AllowAll");
-
             app.UseStaticFiles();
+
+            app.UseCors(CorsPolicyName.AllowAll);
+                        
 
             if (app.Environment.IsDevelopment())
             {
@@ -26,6 +23,9 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseResponseCompression();
+            app.UseResponseCaching();
 
             app.UseFastEndpoints(c =>
             {
@@ -36,7 +36,6 @@
                 c.Versioning.DefaultVersion = 1;
                 c.Errors.UseProblemDetails();
             });
-
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
