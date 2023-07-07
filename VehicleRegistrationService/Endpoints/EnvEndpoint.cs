@@ -1,29 +1,25 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    using System.Text.Json;
-
-    public class EnvEndpoint : EndpointWithoutRequest
+    public static class EnvEndpoint
     {
-        public override void Configure()
+        public static IEndpointRouteBuilder MapEnvEndpoint(this IEndpointRouteBuilder builder)
         {
-            Version(1);
-            Get("/env");
-            AllowAnonymous();
-        }
-
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            IWebHostEnvironment? hostEnvironment = Resolve<IWebHostEnvironment>();
-
-            var thisEnv = new
+            builder.MapGet("env2", (IWebHostEnvironment? hostEnvironment) =>
             {
-                ApplicationName = hostEnvironment.ApplicationName,
-                Environment = hostEnvironment.EnvironmentName,
-            };
+                var thisEnv = new
+                {
+                    ApplicationName = hostEnvironment.ApplicationName,
+                    Environment = hostEnvironment.EnvironmentName,
+                };
 
-            var jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+                return Results.Ok(thisEnv);
+            })
+            .AllowAnonymous()
+            .WithName("env")
+            .WithDescription("Get Environment Info")
+            .WithTags("env");
 
-            await SendAsync(thisEnv,200, ct).ConfigureAwait(false);
+            return builder;
         }
     }
 }

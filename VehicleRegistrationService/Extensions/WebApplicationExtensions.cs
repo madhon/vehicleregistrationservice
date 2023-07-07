@@ -1,6 +1,7 @@
 ﻿namespace VehicleRegistrationService
 {
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using VehicleRegistrationService.Endpoints;
 
     public static class WebApplicationExtensions
     {
@@ -43,6 +44,9 @@
             app.MapHealthChecks("/health/startup");
             app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
             app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+            app.MapEnvEndpoint();
+            app.MapConfEndpoint();
         }
     }
 }

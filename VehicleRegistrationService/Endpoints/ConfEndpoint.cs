@@ -1,25 +1,20 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    using System.Text.Json;
-
-    public class ConfEndpoint : EndpointWithoutRequest
+    public static class ConfEndpoint
     {
-        public override void Configure()
+        public static IEndpointRouteBuilder MapConfEndpoint(this IEndpointRouteBuilder builder)
         {
-            Version(1);
-            Get("/conf");
-            AllowAnonymous();
-        }
+            builder.MapGet("conf", Results<Ok<IEnumerable<KeyValuePair<string, string?>>>, BadRequest> (IConfiguration? config) =>
+            {
+                var configKv = config.AsEnumerable();
+                return TypedResults.Ok(configKv);
+            })
+            .AllowAnonymous()
+            .WithName("conf")
+            .WithDescription("Get Config Info")
+            .WithTags("conf");
 
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            IConfiguration? allConfig = Resolve<IConfiguration>();
-            IEnumerable<KeyValuePair<string, string?>> configKv = allConfig.AsEnumerable();
-
-            var jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
-
-
-            await SendAsync(configKv, 200, ct).ConfigureAwait(false);
+            return builder;
         }
     }
 }
