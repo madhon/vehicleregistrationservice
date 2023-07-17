@@ -38,6 +38,7 @@
             });
 
             app.UseOpenApi();
+
             app.UseSwaggerUi3();
 
             app.MapHealthChecks("/health/startup");
