@@ -20,7 +20,6 @@
 
             services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
-
             services.AddCors(options =>
             {
                 options.AddPolicy(CorsPolicyName.AllowAll, builder =>
@@ -36,10 +35,7 @@
 
             services.AddHealthChecks();
 
-            services.AddFastEndpoints(o =>
-            {
-                o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
-            });
+            services.AddFastEndpoints(o => o.SourceGeneratorDiscoveredTypes.AddRange(DiscoveredTypes.All));
 
             var jwtOpts = new JwtOptions();
             configuration.Bind(JwtOptions.Jwt, jwtOpts);
