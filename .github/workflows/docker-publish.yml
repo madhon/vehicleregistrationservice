@@ -48,6 +48,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+          lables: |
+            maintainer=Madhon
+            org.opencontainers.image.title=VehicleRegistrationService
+            org.opencontainers.image.description=Vehicle Registration Service Test
+            org.opencontainers.image.vendor=Madhon
 
       - name: Build and push Docker image
         id: build-and-push
@@ -57,6 +64,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           provenance: mode=max
           sbom: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
