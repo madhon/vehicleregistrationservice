@@ -25,9 +25,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Cosign
-        if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@v3
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=sha
+          labels: |
+            maintainer=Madhon
+            org.opencontainers.image.title=VehicleRegistrationService
+            org.opencontainers.image.description=Vehicle Registration Service Test
+            org.opencontainers.image.vendor=Madhon
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -42,19 +53,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-          labels: |
-            maintainer=Madhon
-            org.opencontainers.image.title=VehicleRegistrationService
-            org.opencontainers.image.description=Vehicle Registration Service Test
-            org.opencontainers.image.vendor=Madhon
 
       - name: Build and push Docker image
         id: build-and-push
