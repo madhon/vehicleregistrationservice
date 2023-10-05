@@ -37,6 +37,9 @@
 
             services.AddFastEndpoints(o => o.SourceGeneratorDiscoveredTypes.AddRange(DiscoveredTypes.All));
 
+
+            services.AddAuthorization();
+
             var jwtOpts = new JwtOptions();
             configuration.Bind(JwtOptions.Jwt, jwtOpts);
             services.AddSingleton(Options.Create(jwtOpts));
