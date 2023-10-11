@@ -37,7 +37,7 @@
                 claims: new[]
                 {
                     (ClaimTypes.Name, req.UserName), 
-                    (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), 
+                    (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     (JwtRegisteredClaimNames.Nbf, unixTimeSeconds.ToString())
                 }
             );

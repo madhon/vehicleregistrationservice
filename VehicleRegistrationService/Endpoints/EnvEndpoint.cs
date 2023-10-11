@@ -4,12 +4,12 @@
     {
         public static IEndpointRouteBuilder MapEnvEndpoint(this IEndpointRouteBuilder builder)
         {
-            builder.MapGet("env2", (IWebHostEnvironment? hostEnvironment) =>
+            builder.MapGet("env", (IWebHostEnvironment? hostEnvironment) =>
             {
                 var thisEnv = new
                 {
-                    ApplicationName = hostEnvironment.ApplicationName,
-                    Environment = hostEnvironment.EnvironmentName,
+                    ApplicationName = hostEnvironment?.ApplicationName,
+                    Environment = hostEnvironment?.EnvironmentName,
                 };
 
                 return Results.Ok(thisEnv);

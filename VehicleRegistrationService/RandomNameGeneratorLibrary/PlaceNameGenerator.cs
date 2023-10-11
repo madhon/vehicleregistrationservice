@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace RandomNameGeneratorLibrary
+﻿namespace RandomNameGeneratorLibrary
 {
     public class PlaceNameGenerator : BaseNameGenerator, IPlaceNameGenerator
     {
         private const string PlaceNameFile = "places2k.txt.stripped";
-        private static string[] _placeNames;
+        private static string[] _placeNames = null!;
 
         public PlaceNameGenerator()
         {
@@ -15,8 +12,7 @@ namespace RandomNameGeneratorLibrary
 
         public PlaceNameGenerator(Random randGen) : base(randGen)
         {
-            if (randGen == null) throw new ArgumentNullException(nameof(randGen));
-
+            ArgumentNullException.ThrowIfNullOrEmpty(nameof(randGen));
             InitPlaceNames();
         }
 
@@ -34,12 +30,14 @@ namespace RandomNameGeneratorLibrary
             var list = new List<string>();
 
             for (var index = 0; index < numberOfNames; ++index)
+            {
                 list.Add(GenerateRandomPlaceName());
+            }
 
             return list;
         }
 
-        private void InitPlaceNames()
+        private static void InitPlaceNames()
         {
             if (_placeNames != null)
                 return;

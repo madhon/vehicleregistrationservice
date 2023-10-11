@@ -8,9 +8,9 @@ namespace RandomNameGeneratorLibrary
         private const string MaleFile = "dist.male.first.stripped";
         private const string FemaleFile = "dist.female.first.stripped";
         private const string LastNameFile = "dist.all.last.stripped";
-        private static string[] _maleFirstNames;
-        private static string[] _femaleFirstNames;
-        private static string[] _lastNames;
+        private static string[] _maleFirstNames = null!;
+        private static string[] _femaleFirstNames = null!;
+        private static string[] _lastNames = null!;
 
         public PersonNameGenerator()
         {

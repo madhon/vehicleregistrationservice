@@ -47,6 +47,7 @@
 
             app.MapEnvEndpoint();
             app.MapConfEndpoint();
+            app.MapGetVehicleInfoEndpoint();
         }
     }
 }

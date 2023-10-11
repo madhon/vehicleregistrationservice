@@ -6,7 +6,7 @@
         {
             builder.MapGet("conf", Results<Ok<IEnumerable<KeyValuePair<string, string?>>>, BadRequest> (IConfiguration? config) =>
             {
-                var configKv = config.AsEnumerable();
+                var configKv = config?.AsEnumerable();
                 return TypedResults.Ok(configKv);
             })
             .AllowAnonymous()
