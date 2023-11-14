@@ -1,4 +1,4 @@
-ARG VERSION=7.0-alpine
+ARG VERSION=8.0-alpine
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION  AS build
 WORKDIR /src
@@ -9,12 +9,12 @@ RUN dotnet restore "VehicleRegistrationService.csproj"
 COPY . .
 
 WORKDIR /src
-RUN dotnet build "VehicleRegistrationService.csproj" -c Release --runtime alpine-x64 --self-contained true --no-restore -p:PublishSingleFile=true -o /app/build
+RUN dotnet build "VehicleRegistrationService.csproj" -c Release --runtime linux-musl-x64 --self-contained true --no-restore -p:PublishSingleFile=true -o /app/build
 
 FROM build AS publish
 RUN dotnet publish \
   "VehicleRegistrationService.csproj" \
-  --runtime alpine-x64 \
+  --runtime linux-musl-x64 \
   --self-contained true \
   -c Release \
   /p:PublishSingleFile=true \

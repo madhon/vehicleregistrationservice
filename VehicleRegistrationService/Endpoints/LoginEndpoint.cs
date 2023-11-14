@@ -42,7 +42,7 @@
                 }
             );
 
-            await SendAsync(new  LoginResponse() { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
+            await SendAsync(new LoginResponse() { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
         }
 #pragma warning restore AsyncFixer01 // Unnecessary async/await usage
     }

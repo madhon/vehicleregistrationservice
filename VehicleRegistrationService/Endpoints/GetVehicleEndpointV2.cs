@@ -1,12 +1,10 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    using Microsoft.AspNetCore.Authorization;
-
     public static class GetVehicleEndpointV2
     {
         public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
         {
-            builder.MapGet("vehicleinfo2/{licenseNumber}",
+            builder.MapGet("api/v1/vehicleinfo/{licenseNumber}",
                 async Task<Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>>
                 (string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository) =>
             {

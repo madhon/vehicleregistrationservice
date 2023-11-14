@@ -24,7 +24,7 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseResponseCompression();
+            //app.UseResponseCompression();
             app.UseResponseCaching();
 
             app.UseFastEndpoints(c =>

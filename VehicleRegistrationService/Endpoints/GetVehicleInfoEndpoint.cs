@@ -14,7 +14,7 @@
         public override void Configure()
         {
             Version(1);
-            Get("/VehicleInfo/{LicenseNumber}");
+            Get("/VehicleInfoOld/{LicenseNumber}");
             RequestBinder(new RequestBinder<VehicleInfoRequest>(BindingSource.RouteValues));
             Description(b=> b
                 .Produces<VehicleInfo>(200, "application/json")

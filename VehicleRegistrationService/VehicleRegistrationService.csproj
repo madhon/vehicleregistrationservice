@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>11.0</LangVersion>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
     <TieredCompilation>true</TieredCompilation>
-    <RuntimeIdentifiers>win10-x64;alpine-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64;linux-musl-x64</RuntimeIdentifiers>
     <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <Nullable>Enable</Nullable>
@@ -41,10 +41,11 @@
     </PackageReference>
     <PackageReference Include="FastEndpoints.Security" Version="5.19.2" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.19.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+	  
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="8.0.0" />
     <PackageReference Include="Serilog" Version="3.1.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
@@ -52,6 +53,9 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.3" />
     <PackageReference Include="Serilog.Sinks.Grafana.Loki" Version="8.2.0" />
+
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />	  
   </ItemGroup>
 
 </Project>
