@@ -23,18 +23,18 @@ RUN dotnet publish \
 # /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=partial \
 
 FROM  mcr.microsoft.com/dotnet/runtime-deps:$VERSION
-RUN addgroup -g 2000 app\
+RUN addgroup -g 2000 vrapp \
   && adduser \
   --disabled-password \
-  --home /app \
-  --uid 1000 --ingroup app \
-  --gecos '' app \
-  && chown -R app /app \
+  --home /vrapp \
+  --uid 1000 --ingroup vrapp \
+  --gecos '' vrapp \
+  && chown -R vrapp /vrapp \
   && apk add --upgrade --no-cache apk-tools openssl zlib krb5-libs busybox \
   && apk add --no-cache icu-libs
 
-USER app
-WORKDIR /app
+USER vrapp
+WORKDIR /vrapp
 COPY --from=publish /app/publish .
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
   DOTNET_CLI_TELEMETRY_OPTOUT=1 \
