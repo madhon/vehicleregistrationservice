@@ -2,7 +2,7 @@
 {
     using FluentValidation;
 
-    public class VehicleInfoRequestValidator : Validator<VehicleInfoRequest>
+    public class VehicleInfoRequestValidator : AbstractValidator<VehicleInfoRequest>
     {
         public VehicleInfoRequestValidator()
         {

@@ -2,7 +2,7 @@
 
 using FluentValidation;
 
-public class LoginRequestValidator : Validator<LoginRequest>
+public class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
     public LoginRequestValidator()
     {

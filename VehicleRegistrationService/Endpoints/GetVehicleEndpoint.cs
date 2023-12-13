@@ -1,11 +1,11 @@
 ﻿namespace VehicleRegistrationService.Endpoints
 {
-    public static class GetVehicleEndpointV2
+    public static class GetVehicleEndpoint
     {
         public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
         {
             builder.MapGet("api/v1/vehicleinfo/{licenseNumber}",
-                async Task<Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>>
+                Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>
                 (string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository) =>
             {
 
@@ -31,8 +31,9 @@
             .WithDescription("Retrieves info about the specified vehicle")
             .WithTags("vehicleinfo2")
             .Produces<VehicleInfo>()
-            .ProducesProblemDetails()
-            .Produces<UnauthorizedHttpResult>();
+            .ProducesProblem(statusCode: 400)
+            .Produces<UnauthorizedHttpResult>()
+            .RequireAuthorization();
 
             return builder;
         }

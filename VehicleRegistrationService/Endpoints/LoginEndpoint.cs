@@ -1,49 +1,52 @@
-﻿namespace VehicleRegistrationService.Endpoints
+namespace VehicleRegistrationService.Endpoints;
+
+using System.Text;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
+
+public static class LoginEndpoint
 {
-    using System.IdentityModel.Tokens.Jwt;
-
-    public class LoginEndpoint : Endpoint<LoginRequest, LoginResponse>
+    public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder builder)
     {
-        private readonly JwtOptions jwtOptions;
-
-        public LoginEndpoint(JwtOptions jwtOptions)
-        {
-            this.jwtOptions = jwtOptions;
-        }
-
-        public override void Configure()
-        {
-            Version(1);
-            Post("/login");
-            AllowAnonymous();
-        }
-
-#pragma warning disable AsyncFixer01 // Unnecessary async/await usage
-        public override async Task HandleAsync(LoginRequest req, CancellationToken ct)
-        {
-            if (!req.UserName!.Equals("jon") && !req.Password!.Equals("Password1"))
-            {
-                ThrowError("The supplied credentials are invalid!");
-            }
-
-            var now = DateTime.UtcNow;
-            var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
-
-            var jwtToken = JWTBearer.CreateToken(
-                signingKey: jwtOptions.Secret,
-                expireAt: now.AddMinutes(10),
-                issuer: jwtOptions.ValidIssuer,
-                audience: jwtOptions.ValidAudience,
-                claims: new[]
+        builder.MapPost("api/v1/login", Results<Ok<LoginResponse>, UnauthorizedHttpResult>
+                (LoginRequest req, ILoggerFactory loggerFactory, IOptions<JwtOptions> options) =>
                 {
-                    (ClaimTypes.Name, req.UserName), 
-                    (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    (JwtRegisteredClaimNames.Nbf, unixTimeSeconds.ToString())
-                }
-            );
+                    //var logger = loggerFactory.CreateLogger("LoginEndpointV2");
+                    if (!req.UserName!.Equals("jon") && !req.Password!.Equals("Password1"))
+                    {
+                        return TypedResults.Unauthorized();
+                    }
 
-            await SendAsync(new LoginResponse() { Token = jwtToken, ExpiresAt = now.AddMinutes(10) }, cancellation: ct).ConfigureAwait(false);
-        }
-#pragma warning restore AsyncFixer01 // Unnecessary async/await usage
+                    var now = DateTime.UtcNow;
+                    var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
+                    var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var descriptor = new SecurityTokenDescriptor
+                    {
+                        Issuer = options.Value.ValidIssuer,
+                        Audience = options.Value.ValidAudience,
+                        IssuedAt = now,
+                        Expires = now.AddMinutes(10),
+                        Claims = new Dictionary<string, object>
+                        {
+                            { JwtRegisteredClaimNames.Iat, unixTimeSeconds.ToString() },
+                            { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
+                            { ClaimTypes.Name, "jon" }
+                        },
+                        SigningCredentials = signInCredentials
+                    };
+
+                    var handler = new JsonWebTokenHandler();
+                    var token = handler.CreateToken(descriptor);
+                    return TypedResults.Ok(new LoginResponse { Token = token, ExpiresAt = now.AddMinutes(10) });
+                })
+            .WithName("login")
+            .WithDescription("Login to API")
+            .WithTags("login")
+            .Produces<LoginResponse>()
+            .Produces<UnauthorizedHttpResult>()
+            .AllowAnonymous();
+
+        return builder;
     }
 }
