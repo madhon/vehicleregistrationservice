@@ -1,6 +1,7 @@
 ﻿namespace VehicleRegistrationService
 {
     using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+    using Microsoft.OpenApi.Models;
     using VehicleRegistrationService.Endpoints;
 
     public static class WebApplicationExtensions
@@ -20,6 +21,21 @@
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "docs/{documentName}/openapi.json";
+                c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Servers = new List<OpenApiServer>
+                    { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" } });
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "docs";
+                c.SwaggerEndpoint("v1/openapi.json", "Vehicle Registration API");
+                c.DisplayRequestDuration();
+                c.DefaultModelExpandDepth(-1);
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
