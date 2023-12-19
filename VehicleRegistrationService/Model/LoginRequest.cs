@@ -1,13 +1,3 @@
-﻿namespace VehicleRegistrationService.Model
-{
-    public class LoginRequest
-    {
-        public LoginRequest()
-        {
-            // needed for fast endpoints
-        }
+﻿namespace VehicleRegistrationService.Model;
 
-        public string? UserName { get; set; }
-        public string? Password { get; set; }
-    }
-}
+public record LoginRequest(string UserName, string Password);

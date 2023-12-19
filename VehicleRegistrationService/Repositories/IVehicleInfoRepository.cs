@@ -1,9 +1,8 @@
-﻿namespace VehicleRegistrationService.Repositories
-{
-    using VehicleRegistrationService.Model;
+﻿namespace VehicleRegistrationService.Repositories;
 
-    public interface IVehicleInfoRepository
-    {
-        VehicleInfo GetVehicleInfo(string licenseNumber);
-    }
+using VehicleRegistrationService.Model;
+
+public interface IVehicleInfoRepository
+{
+    VehicleInfo GetVehicleInfo(string licenseNumber);
 }

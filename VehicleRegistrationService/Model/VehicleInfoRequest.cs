@@ -1,18 +1,5 @@
-﻿namespace VehicleRegistrationService.Model
-{
-    using System.ComponentModel;
+﻿namespace VehicleRegistrationService.Model;
 
-    public class VehicleInfoRequest
-    {
-        public VehicleInfoRequest()
-        {
-            // needed for fast endpoints
-        }
+using System.ComponentModel;
 
-        /// <summary>
-        /// The license plate to request info about
-        /// </summary>
-        [DefaultValue("Test")]
-        public string LicenseNumber { get; set; } = string.Empty;
-    }
-}
+public record VehicleInfoRequest([DefaultValue("Test")] string LicenseNumber);

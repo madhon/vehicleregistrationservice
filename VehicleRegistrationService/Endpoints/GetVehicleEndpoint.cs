@@ -1,32 +1,26 @@
-﻿namespace VehicleRegistrationService.Endpoints
+﻿namespace VehicleRegistrationService.Endpoints;
+
+public static partial class GetVehicleEndpoint
 {
-    public static class GetVehicleEndpoint
+    public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
     {
-        public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
-        {
-            builder.MapGet("api/v1/vehicleinfo/{licenseNumber}",
+        builder.MapGet("api/v1/vehicleinfo/{licenseNumber}",
                 Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>
-                (string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository) =>
-            {
-
-                var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
-
-
-                logger.LogInformation("Retrieving vehicle info for license number {licenseNumber}", licenseNumber);
-
-
-                if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
+                    (string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository) =>
                 {
-                    logger.LogError("Request for restricted license number {licenseNumber}", licenseNumber);
-                    return TypedResults.BadRequest("Restricted License Plate");
-                }
 
-                var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
+                    var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
+                    LogRetrievingLicense(logger, licenseNumber);
 
-                return TypedResults.Ok(info);
+                    if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
+                    {
+                        LogRestrictedLicense(logger, licenseNumber);
+                        return TypedResults.BadRequest("Restricted License Plate");
+                    }
 
-
-            })
+                    var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
+                    return TypedResults.Ok(info);
+                })
             .WithName("vehicleinfo2")
             .WithDescription("Retrieves info about the specified vehicle")
             .WithTags("vehicleinfo2")
@@ -35,7 +29,18 @@
             .Produces<UnauthorizedHttpResult>()
             .RequireAuthorization();
 
-            return builder;
-        }
+        return builder;
     }
+        
+    [LoggerMessage(
+        EventId = 1000,
+        Level = LogLevel.Information,
+        Message = "Retrieving vehicle info for license number `{licenseNumber}`")]
+    static partial void LogRetrievingLicense(ILogger logger, string licenseNumber);
+        
+    [LoggerMessage(
+        EventId = 1001,
+        Level = LogLevel.Information,
+        Message = "Request for restricted license number `{licenseNumber}`")]
+    static partial void LogRestrictedLicense(ILogger logger, string licenseNumber);
 }

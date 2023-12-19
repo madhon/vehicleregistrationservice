@@ -68,14 +68,7 @@
             }
 
             // return info
-            return new VehicleInfo
-            {
-                VehicleId = licenseNumber,
-                Brand = brand,
-                Model = model,
-                OwnerName = ownerName,
-                OwnerEmail = ownerEmail
-            };
+            return new VehicleInfo(licenseNumber, brand, model, ownerName, ownerEmail);
         }
 
         private string GetRandomBrand()

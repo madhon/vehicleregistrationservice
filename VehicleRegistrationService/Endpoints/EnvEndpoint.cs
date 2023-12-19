@@ -1,10 +1,10 @@
-﻿namespace VehicleRegistrationService.Endpoints
+﻿namespace VehicleRegistrationService.Endpoints;
+
+public static class EnvEndpoint
 {
-    public static class EnvEndpoint
+    public static IEndpointRouteBuilder MapEnvEndpoint(this IEndpointRouteBuilder builder)
     {
-        public static IEndpointRouteBuilder MapEnvEndpoint(this IEndpointRouteBuilder builder)
-        {
-            builder.MapGet("env", (IWebHostEnvironment? hostEnvironment) =>
+        builder.MapGet("env", (IWebHostEnvironment? hostEnvironment) =>
             {
                 var thisEnv = new
                 {
@@ -19,7 +19,6 @@
             .WithDescription("Get Environment Info")
             .WithTags("env");
 
-            return builder;
-        }
+        return builder;
     }
 }

@@ -1,60 +1,60 @@
-﻿namespace VehicleRegistrationService
+﻿namespace VehicleRegistrationService;
+
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using VehicleRegistrationService.Endpoints;
+    
+public static class WebApplicationExtensions
 {
-    using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-    using Microsoft.OpenApi.Models;
-    using VehicleRegistrationService.Endpoints;
-
-    public static class WebApplicationExtensions
+    public static void ConfigureApplication(this WebApplication app)
     {
-        public static void ConfigureApplication(this WebApplication app)
-        {
-            app.UseForwardedHeaders();
+        app.UseForwardedHeaders();
 
-            app.UseSerilogRequestLogging();
+        app.UseSerilogRequestLogging();
 
-            app.UseStaticFiles();
+        app.UseStaticFiles();
 
-            app.UseCors(CorsPolicyName.AllowAll);
+        app.UseCors(CorsPolicyName.AllowAll);
                         
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseSwagger(c =>
-            {
-                c.RouteTemplate = "docs/{documentName}/openapi.json";
-                c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Servers = new List<OpenApiServer>
-                    { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" } });
-            });
-
-            app.UseSwaggerUI(c =>
-            {
-                c.RoutePrefix = "docs";
-                c.SwaggerEndpoint("v1/openapi.json", "Vehicle Registration API");
-                c.DisplayRequestDuration();
-                c.DefaultModelExpandDepth(-1);
-            });
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            //app.UseResponseCompression();
-            app.UseResponseCaching();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI();
-
-            app.MapHealthChecks("/health/startup");
-            app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-            app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
-
-            app.MapEnvEndpoint();
-            app.MapConfEndpoint();
-            app.MapGetVehicleInfoEndpoint();
-            app.MapLoginEndpoint();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
+
+        app.UseSwagger(c =>
+        {
+            c.RouteTemplate = "docs/{documentName}/openapi.json";
+            c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Servers = new List<OpenApiServer>
+                { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" } });
+        });
+
+        app.UseSwaggerUI(c =>
+        {
+            c.RoutePrefix = "docs";
+            c.SwaggerEndpoint("v1/openapi.json", "Vehicle Registration API");
+            c.DisplayRequestDuration();
+            c.DefaultModelExpandDepth(-1);
+        });
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        //app.UseResponseCompression();
+        app.UseResponseCaching();
+
+        app.UseSwagger();
+
+        app.UseSwaggerUI();
+
+        app.MapHealthChecks("/health/startup");
+        app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
+        app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+
+        app.MapEnvEndpoint();
+        app.MapConfEndpoint();
+        app.MapGetVehicleInfoEndpoint();
+        app.MapLoginEndpoint();
     }
 }
