@@ -13,11 +13,10 @@ public static class WebApplicationExtensions
 
         app.UseSerilogRequestLogging();
 
-        app.UseStaticFiles();
-
         app.UseCors(CorsPolicyName.AllowAll);
-                        
 
+        app.UseExceptionHandler();
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -43,10 +42,6 @@ public static class WebApplicationExtensions
 
         //app.UseResponseCompression();
         app.UseResponseCaching();
-
-        app.UseSwagger();
-
-        app.UseSwaggerUI();
 
         app.MapHealthChecks("/health/startup");
         app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });

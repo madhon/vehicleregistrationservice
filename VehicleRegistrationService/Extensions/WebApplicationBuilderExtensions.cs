@@ -43,6 +43,8 @@ public static class WebApplicationBuilderExtensions
 
         services.AddHealthChecks();
 
+        services.AddProblemDetails();
+        
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(config =>
         {
