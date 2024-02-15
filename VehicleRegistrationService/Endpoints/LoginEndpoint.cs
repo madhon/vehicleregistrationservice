@@ -2,6 +2,7 @@ namespace VehicleRegistrationService.Endpoints;
 
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using VehicleRegistrationService.Certificates;
 
 public static class LoginEndpoint
 {
@@ -18,8 +19,11 @@ public static class LoginEndpoint
 
                     var now = DateTime.UtcNow;
                     var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
-                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
-                    var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    
+                    var signingAudienceCertificate = new SigningAudienceCertificate();
+                    
+                    //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
+                    //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                     var descriptor = new SecurityTokenDescriptor
                     {
                         Issuer = options.Value.ValidIssuer,
@@ -32,7 +36,7 @@ public static class LoginEndpoint
                             { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
                             { ClaimTypes.Name, "jon" }
                         },
-                        SigningCredentials = signInCredentials
+                        SigningCredentials = signingAudienceCertificate.GetAudienceSigningKey()
                     };
 
                     var handler = new JsonWebTokenHandler();

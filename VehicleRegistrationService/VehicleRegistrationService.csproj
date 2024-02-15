@@ -25,6 +25,12 @@
     <None Remove="RandomNameGeneratorLibrary\Resources\dist.female.first.stripped" />
     <None Remove="RandomNameGeneratorLibrary\Resources\dist.male.first.stripped" />
     <None Remove="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
+    <None Update="private_key.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="public_key.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

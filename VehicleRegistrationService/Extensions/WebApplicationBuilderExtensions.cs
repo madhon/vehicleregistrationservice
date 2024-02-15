@@ -1,5 +1,6 @@
 ﻿namespace VehicleRegistrationService;
 
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -78,37 +79,20 @@ public static class WebApplicationBuilderExtensions
             
         services.AddAuthorization();
 
-        var jwtOpts = new JwtOptions();
-        configuration.Bind(JwtOptions.SectionName, jwtOpts);
-        services.AddSingleton(Options.Create(jwtOpts));
-
-        services.Configure<JwtOptions>(
-            configuration.GetSection(JwtOptions.SectionName));
-        services.AddScoped(cfg => cfg!.GetService<IOptions<JwtOptions>>()!.Value);
-
-        var secret = jwtOpts.Secret;
-        var key = Encoding.ASCII.GetBytes(secret);
-
-        builder.Services.AddAuthentication(opt => {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
+        builder.Services
+            .AddOptions<JwtOptions>()
+            .Bind(builder.Configuration.GetSection(JwtOptions.SectionName));
+        
+        builder.Services
+            .AddSingleton<IValidateOptions<JwtOptions>, JwtOptionsValidator>();
+        
+        services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
+        
+        services.AddAuthentication(auth =>
             {
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"])),
-                    ValidateIssuer = true,
-                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-                    ValidateAudience = true,
-                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    RequireExpirationTime = true
-                };
-            });
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+            })
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, null!);
     }
-
 }
