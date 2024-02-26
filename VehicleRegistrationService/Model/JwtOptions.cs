@@ -6,11 +6,12 @@ public class JwtOptions
 {
     public const string SectionName = "JWT";
 
-    [Required]
+    [Required, MinLength(1)]
     public string ValidAudience { get; set; } = string.Empty;
     
-    [Required]
+    [Required, MinLength(1)]
     public string ValidIssuer { get; set; } = string.Empty;
+    
     public string Secret { get; set; } = string.Empty;
 
     public string EcDsaPrivate { get; set; } = string.Empty;

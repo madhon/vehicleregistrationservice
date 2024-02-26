@@ -4,32 +4,33 @@ public static partial class GetVehicleEndpoint
 {
     public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapGet("api/v1/vehicleinfo/{licenseNumber}",
-                Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>
-                    (string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository) =>
-                {
-
-                    var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
-                    LogRetrievingLicense(logger, licenseNumber);
-
-                    if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
-                    {
-                        LogRestrictedLicense(logger, licenseNumber);
-                        return TypedResults.BadRequest("Restricted License Plate");
-                    }
-
-                    var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
-                    return TypedResults.Ok(info);
-                })
-            .WithName("vehicleinfo2")
+        builder.MapGet("api/v1/vehicleinfo/{licenseNumber}", HandleGetVehicleEndpoint)
+            .WithName(nameof(HandleGetVehicleEndpoint))
             .WithDescription("Retrieves info about the specified vehicle")
-            .WithTags("vehicleinfo2")
+            .WithTags("vehicleinfo")
             .Produces<VehicleInfo>()
             .ProducesProblem(statusCode: 400)
             .Produces<UnauthorizedHttpResult>()
             .RequireAuthorization();
 
         return builder;
+    }
+
+    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>> 
+        HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
+    {
+        
+        var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
+        LogRetrievingLicense(logger, licenseNumber);
+
+        if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
+        {
+            LogRestrictedLicense(logger, licenseNumber);
+            return TypedResults.BadRequest("Restricted License Plate");
+        }
+
+        var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
+        return TypedResults.Ok(info);
     }
         
     [LoggerMessage(
