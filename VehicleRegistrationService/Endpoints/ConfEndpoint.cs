@@ -1,6 +1,6 @@
 ﻿namespace VehicleRegistrationService.Endpoints;
 
-public static class ConfEndpoint
+internal static class ConfEndpoint
 {
     public static IEndpointRouteBuilder MapConfEndpoint(this IEndpointRouteBuilder builder)
     {

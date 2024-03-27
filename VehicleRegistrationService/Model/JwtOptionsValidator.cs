@@ -1,7 +1,7 @@
 namespace VehicleRegistrationService.Model;
 
 [OptionsValidator]
-public partial class JwtOptionsValidator : IValidateOptions<JwtOptions>
+internal partial class JwtOptionsValidator : IValidateOptions<JwtOptions>
 {
     
 }

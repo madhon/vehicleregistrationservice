@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-public static class WebApplicationBuilderExtensions
+internal static class WebApplicationBuilderExtensions
 {
     public static void RegisterServices(this WebApplicationBuilder builder)
     {

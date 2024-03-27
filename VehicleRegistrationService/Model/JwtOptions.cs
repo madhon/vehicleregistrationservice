@@ -2,7 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-public class JwtOptions
+internal class JwtOptions
 {
     public const string SectionName = "JWT";
 

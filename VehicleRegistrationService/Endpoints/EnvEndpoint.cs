@@ -1,6 +1,6 @@
 ﻿namespace VehicleRegistrationService.Endpoints;
 
-public static class EnvEndpoint
+internal static class EnvEndpoint
 {
     public static IEndpointRouteBuilder MapEnvEndpoint(this IEndpointRouteBuilder builder)
     {

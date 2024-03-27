@@ -4,11 +4,11 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using VehicleRegistrationService.Certificates;
 
-public static class LoginEndpoint
+internal static class LoginEndpoint
 {
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapPost("api/v1/login", HandleLogin)
+        builder.MapPost("login", HandleLogin)
             .WithName("login")
             .WithDescription("Login to API")
             .WithTags("login")

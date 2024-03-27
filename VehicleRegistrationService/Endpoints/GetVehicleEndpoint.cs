@@ -1,10 +1,10 @@
 ﻿namespace VehicleRegistrationService.Endpoints;
 
-public static partial class GetVehicleEndpoint
+internal static partial class GetVehicleEndpoint
 {
     public static IEndpointRouteBuilder MapGetVehicleInfoEndpoint(this IEndpointRouteBuilder builder)
     {
-        builder.MapGet("api/v1/vehicleinfo/{licenseNumber}", HandleGetVehicleEndpoint)
+        builder.MapGet("vehicleinfo/{licenseNumber}", HandleGetVehicleEndpoint)
             .WithName(nameof(HandleGetVehicleEndpoint))
             .WithDescription("Retrieves info about the specified vehicle")
             .WithTags("vehicleinfo")

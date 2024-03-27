@@ -1,6 +1,6 @@
 ﻿namespace VehicleRegistrationService;
 
-public static class CorsPolicyName
+internal static class CorsPolicyName
 {
     public const string AllowAll = "AllowAll";
 }

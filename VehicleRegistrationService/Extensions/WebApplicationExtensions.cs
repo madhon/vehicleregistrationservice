@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using VehicleRegistrationService.Endpoints;
     
-public static class WebApplicationExtensions
+internal static class WebApplicationExtensions
 {
     public static void ConfigureApplication(this WebApplication app)
     {
@@ -49,7 +49,6 @@ public static class WebApplicationExtensions
 
         app.MapEnvEndpoint();
         app.MapConfEndpoint();
-        app.MapGetVehicleInfoEndpoint();
-        app.MapLoginEndpoint();
+        app.MapVehicleRegistrationApi();
     }
 }

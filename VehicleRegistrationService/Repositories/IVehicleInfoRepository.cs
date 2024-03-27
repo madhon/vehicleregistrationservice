@@ -2,7 +2,7 @@
 
 using VehicleRegistrationService.Model;
 
-public interface IVehicleInfoRepository
+internal interface IVehicleInfoRepository
 {
     VehicleInfo GetVehicleInfo(string licenseNumber);
 }

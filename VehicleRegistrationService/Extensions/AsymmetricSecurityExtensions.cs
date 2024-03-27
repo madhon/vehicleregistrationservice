@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using VehicleRegistrationService.Certificates;
 
-public static class AsymmetricSecurityExtensions
+internal static class AsymmetricSecurityExtensions
 {
     public static IServiceCollection AddAsymmetricAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
