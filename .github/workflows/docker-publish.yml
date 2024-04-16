@@ -67,14 +67,13 @@ jobs:
           
       - name: Scan Docker Image
         id: container-scan
-        uses: anchore/scan-action@v3
+        uses: aquasecurity/trivy-action@master
         with:
-          image: ${{ steps.meta.outputs.tags }}
-          fail-build: false
-          continue-on-error: true
-          output-format: sarif
+          image-ref: ${{ steps.meta.outputs.tags }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
       
-      - name: Upload Grype results to GitHub
+      - name: Upload Trivy results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.container-scan.outputs.sarif }}
+          sarif_file: 'trivy-results.sarif'
