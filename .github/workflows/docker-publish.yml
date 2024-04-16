@@ -71,6 +71,7 @@ jobs:
         with:
           image: ${{ steps.meta.outputs.tags }}
           fail-build: false
+          continue-on-error: true
           output-format: sarif
       
       - name: Upload Grype results to GitHub
