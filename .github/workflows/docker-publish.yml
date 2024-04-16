@@ -63,3 +63,16 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Scan Docker Image
+        id: container-scan
+        uses: anchore/scan-action@v3
+        with:
+          image: ${{ steps.meta.outputs.tags }}
+          fail-build: false
+          output-format: sarif
+      
+      - name: Upload Grype results to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.container-scan.outputs.sarif }}
