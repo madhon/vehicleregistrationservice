@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace RandomNameGeneratorLibrary
 {
-    public class CensusListStripper
+    using System.Runtime.InteropServices;
+
+    public partial class CensusListStripper
     {
         public void StripStatisticsFromPersonNameFile(string nameFilePath, string nameStrippedFilePath)
         {
@@ -42,9 +40,12 @@ namespace RandomNameGeneratorLibrary
             return str[0].ToString().ToUpper() + str.Remove(0, 1);
         }
 
+        [GeneratedRegex("\\d")]
+        private static partial Regex RemoveDigitsRegex();
+
         public static string RemoveDigits(string key)
         {
-            return Regex.Replace(key, "\\d", "");
+            return RemoveDigitsRegex().Replace(key, replacement: "");
         }
 
         private static StringBuilder ExtractPlaceNameStrings(IEnumerable<string> names)

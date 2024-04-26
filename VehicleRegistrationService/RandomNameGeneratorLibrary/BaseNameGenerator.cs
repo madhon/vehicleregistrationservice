@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace RandomNameGeneratorLibrary
 {
@@ -22,13 +19,8 @@ namespace RandomNameGeneratorLibrary
 
         private static Stream ReadResourceStreamForFileName(string resourceFileName)
         {
-#if NET40
-            return Assembly.GetExecutingAssembly()
-                    .GetManifestResourceStream(ResourcePathPrefix + resourceFileName);
-#else
-            return typeof(BaseNameGenerator).GetTypeInfo().Assembly
-                .GetManifestResourceStream(ResourcePathPrefix + resourceFileName);
-#endif
+            return typeof(BaseNameGenerator)!.GetTypeInfo()!.Assembly!
+                .GetManifestResourceStream(ResourcePathPrefix + resourceFileName)!;
         }
 
         protected static string[] ReadResourceByLine(string resourceFileName)

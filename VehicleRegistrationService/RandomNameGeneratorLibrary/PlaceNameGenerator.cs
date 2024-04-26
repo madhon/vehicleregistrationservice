@@ -19,8 +19,7 @@
         public string GenerateRandomPlaceName()
         {
             var index = RandGen.Next(0, _placeNames.Length);
-
-            return _placeNames[index];
+            return _placeNames.AsSpan()[index];
         }
 
         public IEnumerable<string> GenerateMultiplePlaceNames(int numberOfNames)
