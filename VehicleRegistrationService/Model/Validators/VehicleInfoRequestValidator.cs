@@ -2,7 +2,7 @@
 {
     using FluentValidation;
 
-    internal class VehicleInfoRequestValidator : AbstractValidator<VehicleInfoRequest>
+    internal sealed class VehicleInfoRequestValidator : AbstractValidator<VehicleInfoRequest>
     {
         public VehicleInfoRequestValidator()
         {

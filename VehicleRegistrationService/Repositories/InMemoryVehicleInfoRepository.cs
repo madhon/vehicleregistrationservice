@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using VehicleRegistrationService.Model;
 
-internal class InMemoryVehicleInfoRepository : IVehicleInfoRepository
+internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 {
     private readonly Random _rnd;
 

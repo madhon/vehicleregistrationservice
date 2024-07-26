@@ -2,7 +2,7 @@
 
 using FluentValidation;
 
-internal class LoginRequestValidator : AbstractValidator<LoginRequest>
+internal sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
     public LoginRequestValidator()
     {

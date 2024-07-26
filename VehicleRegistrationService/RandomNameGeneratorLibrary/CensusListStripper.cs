@@ -66,7 +66,7 @@ namespace RandomNameGeneratorLibrary
 
             var townClassification = GetTownClassification(minusState, false);
 
-            var startIndex = minusState.IndexOf(townClassification);
+            var startIndex = minusState.IndexOf(townClassification, StringComparison.OrdinalIgnoreCase);
 
             return minusState.Remove(startIndex);
         }

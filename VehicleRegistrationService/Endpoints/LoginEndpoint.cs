@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using VehicleRegistrationService.Certificates;
 
-internal static class LoginEndpoint
+internal static partial class LoginEndpoint
 {
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder builder)
     {
@@ -22,17 +22,20 @@ internal static class LoginEndpoint
     private static Results<Ok<LoginResponse>, UnauthorizedHttpResult>
         HandleLogin(LoginRequest req, ILoggerFactory loggerFactory, IOptions<JwtOptions> options)
     {
-        //var logger = loggerFactory.CreateLogger("LoginEndpointV2");
-        if (!req.UserName!.Equals("jon") && !req.Password!.Equals("Password1"))
+        var logger = loggerFactory.CreateLogger("LoginEndpointV2");
+        if (!(req.UserName!.Equals("jon", StringComparison.OrdinalIgnoreCase) && req.Password!.Equals("Password1", StringComparison.Ordinal)))
         {
+            LogUserLoginFailed(logger, req.UserName);
             return TypedResults.Unauthorized();
         }
 
+        LogUserLoginSuccess(logger, req.UserName);
+
         var now = DateTime.UtcNow;
         var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
-                    
+
         var signingAudienceCertificate = new SigningAudienceCertificate();
-                    
+
         //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
         //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
         var descriptor = new SecurityTokenDescriptor
@@ -54,4 +57,16 @@ internal static class LoginEndpoint
         var token = handler.CreateToken(descriptor);
         return TypedResults.Ok(new LoginResponse { Token = token, ExpiresAt = now.AddMinutes(10) });
     }
+
+    [LoggerMessage(
+        EventId = 101,
+        Level = LogLevel.Information,
+        Message = "User Login Succeeded `{userName}`")]
+    static partial void LogUserLoginSuccess(ILogger logger, string userName);
+
+    [LoggerMessage(
+        EventId = 101,
+        Level = LogLevel.Information,
+        Message = "User Login Failed `{userName}`")]
+    static partial void LogUserLoginFailed(ILogger logger, string userName);
 }

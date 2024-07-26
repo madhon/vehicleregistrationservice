@@ -6,6 +6,4 @@
 [JsonSerializable(typeof(LoginResponse))]
 [JsonSerializable(typeof(VehicleInfo))]
 [JsonSerializable(typeof(VehicleInfoRequest))]
-internal partial class AppJsonSerializerContext : JsonSerializerContext
-{
-}
+internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

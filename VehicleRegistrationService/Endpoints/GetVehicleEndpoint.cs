@@ -19,7 +19,6 @@ internal static partial class GetVehicleEndpoint
     private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>> 
         HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
     {
-        
         var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
         LogRetrievingLicense(logger, licenseNumber);
 
@@ -32,13 +31,13 @@ internal static partial class GetVehicleEndpoint
         var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
         return TypedResults.Ok(info);
     }
-        
+
     [LoggerMessage(
         EventId = 1000,
         Level = LogLevel.Information,
         Message = "Retrieving vehicle info for license number `{licenseNumber}`")]
     static partial void LogRetrievingLicense(ILogger logger, string licenseNumber);
-        
+
     [LoggerMessage(
         EventId = 1001,
         Level = LogLevel.Information,

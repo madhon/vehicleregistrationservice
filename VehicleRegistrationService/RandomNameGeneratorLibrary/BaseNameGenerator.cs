@@ -30,12 +30,13 @@ namespace RandomNameGeneratorLibrary
             var list = new List<string>();
 
             var streamReader = new StreamReader(stream);
-            string str;
 
-            while ((str = streamReader.ReadLine()) != null)
+            while (streamReader.ReadLine() is { } str)
             {
-                if (str != string.Empty)
+                if (!string.IsNullOrEmpty(str))
+                {
                     list.Add(str);
+                }
             }
 
             return list.ToArray();
