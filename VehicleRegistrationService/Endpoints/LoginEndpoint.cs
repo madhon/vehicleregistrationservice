@@ -65,7 +65,7 @@ internal static partial class LoginEndpoint
     static partial void LogUserLoginSuccess(ILogger logger, string userName);
 
     [LoggerMessage(
-        EventId = 101,
+        EventId = 102,
         Level = LogLevel.Information,
         Message = "User Login Failed `{userName}`")]
     static partial void LogUserLoginFailed(ILogger logger, string userName);

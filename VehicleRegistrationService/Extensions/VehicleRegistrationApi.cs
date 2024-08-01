@@ -10,7 +10,7 @@ public static class VehicleRegistrationApi
 
         group.MapLoginEndpoint();
         group.MapGetVehicleInfoEndpoint();
-        
+
         return group;
     }
 }
