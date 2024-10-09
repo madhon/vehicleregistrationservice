@@ -1,4 +1,4 @@
-ARG VERSION=8.0-azurelinux3.0-distroless
+ARG RUNTIMEVERSION=8.0-azurelinux3.0-distroless
 ARG SDKVERSION=8.0-azurelinux3.0
 
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
@@ -27,8 +27,7 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 
 # /p:PublishSingleFile=true -p:PublishTrimmed=True -p:TrimMode=partial \
 
-FROM  mcr.microsoft.com/dotnet/runtime-deps:$VERSION AS final
-#RUN apk add --upgrade --no-cache apk-tools openssl zlib krb5-libs busybox icu-libs
+FROM  mcr.microsoft.com/dotnet/runtime-deps:$RUNTIMEVERSION AS final
 
 USER $APP_UID
 WORKDIR /app
