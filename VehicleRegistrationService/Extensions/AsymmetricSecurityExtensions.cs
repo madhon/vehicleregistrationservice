@@ -35,7 +35,7 @@ internal static class AsymmetricSecurityExtensions
 
         return services;
     }
-    
+
     private static bool LifetimeValidator(DateTime? notBefore,
         DateTime? expires,
         SecurityToken securityToken,

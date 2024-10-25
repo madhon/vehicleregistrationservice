@@ -12,27 +12,29 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
     private readonly PersonNameGenerator nameGenerator;
 
-    private readonly string[] _vehicleBrands = {
+    private readonly string[] vehicleBrands =
+    [
         "Mercedes", "Toyota", "Audi", "Volkswagen", "Seat", "Renault", "Skoda",
-        "Kia", "Citroën", "Suzuki", "Mitsubishi", "Fiat", "Toyota", "Opel" };
+        "Kia", "Citroën", "Suzuki", "Mitsubishi", "Fiat", "Toyota", "Opel"
+    ];
 
     private readonly Dictionary<string, string[]> models = new()
     {
-        { "Mercedes", new[] { "A Class", "B Class", "C Class", "E Class", "SLS", "SLK" } },
-        { "Toyota", new[] { "Yaris", "CHR", "Rav 4", "Prius", "Celica" } },
-        { "Audi", new[] { "A3", "A4", "A6", "A8", "Q5", "Q7" } },
-        { "Volkswagen", new[] { "Golf", "Pasat", "Tiguan", "Caddy" } },
-        { "Seat", new[] { "Leon", "Arona", "Ibiza", "Alhambra" } },
-        { "Renault", new[] { "Megane", "Clio", "Twingo", "Scenic", "Captur" } },
-        { "Skoda", new[] { "Octavia", "Fabia", "Superb", "Karoq", "Kodiaq" } },
-        { "Kia", new[] { "Picanto", "Rio", "Ceed", "XCeed", "Niro", "Sportage" } },
-        { "Citroën", new[] { "C1", "C2", "C3", "C4", "C4 Cactus", "Berlingo" } },
-        { "Suzuki", new[] { "Ignis", "Swift", "Vitara", "S-Cross", "Swace", "Jimny" } },
-        { "Mitsubishi", new[] { "Space Star", "ASX", "Eclipse Cross", "Outlander PHEV" } },
-        { "Ford", new[] { "Focus", "Ka", "C-Max", "Fusion", "Fiesta", "Mondeo", "Kuga" } },
-        { "BMW", new[] { "1 Series", "2 Series", "3 Series", "5 Series", "7 Series", "X5" } },
-        { "Fiat", new[] { "500", "Panda", "Punto", "Tipo", "Multipla" } },
-        { "Opel", new[] { "Karl", "Corsa", "Astra", "Crossland X", "Insignia" } }
+        { "Mercedes", ["A Class", "B Class", "C Class", "E Class", "SLS", "SLK"] },
+        { "Toyota", ["Yaris", "CHR", "Rav 4", "Prius", "Celica"] },
+        { "Audi", ["A3", "A4", "A6", "A8", "Q5", "Q7"] },
+        { "Volkswagen", ["Golf", "Pasat", "Tiguan", "Caddy"] },
+        { "Seat", ["Leon", "Arona", "Ibiza", "Alhambra"] },
+        { "Renault", ["Megane", "Clio", "Twingo", "Scenic", "Captur"] },
+        { "Skoda", ["Octavia", "Fabia", "Superb", "Karoq", "Kodiaq"] },
+        { "Kia", ["Picanto", "Rio", "Ceed", "XCeed", "Niro", "Sportage"] },
+        { "Citroën", ["C1", "C2", "C3", "C4", "C4 Cactus", "Berlingo"] },
+        { "Suzuki", ["Ignis", "Swift", "Vitara", "S-Cross", "Swace", "Jimny"] },
+        { "Mitsubishi", ["Space Star", "ASX", "Eclipse Cross", "Outlander PHEV"] },
+        { "Ford", ["Focus", "Ka", "C-Max", "Fusion", "Fiesta", "Mondeo", "Kuga"] },
+        { "BMW", ["1 Series", "2 Series", "3 Series", "5 Series", "7 Series", "X5"] },
+        { "Fiat", ["500", "Panda", "Punto", "Tipo", "Multipla"] },
+        { "Opel", ["Karl", "Corsa", "Astra", "Crossland X", "Insignia"] }
     };
 
     public InMemoryVehicleInfoRepository()
@@ -45,7 +47,6 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
     {
         // simulate slow IO
         Thread.Sleep(_rnd.Next(5, 200));
-
 
         // get random vehicle info
         var brand = GetRandomBrand();
@@ -67,13 +68,12 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
             model = "CHR";
         }
 
-        // return info
         return new VehicleInfo(licenseNumber, brand, model, ownerName, ownerEmail);
     }
 
     private string GetRandomBrand()
     {
-        return _vehicleBrands[_rnd.Next(_vehicleBrands.Length)];
+        return vehicleBrands[_rnd.Next(vehicleBrands.Length)];
     }
 
     private string GetRandomModel(string brand)

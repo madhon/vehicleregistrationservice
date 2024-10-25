@@ -1,6 +1,12 @@
 ﻿namespace VehicleRegistrationService;
 
-[JsonSourceGenerationOptions(defaults: JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
+[JsonSourceGenerationOptions(
+    PropertyNameCaseInsensitive = true,
+    PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+    DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+    NumberHandling = JsonNumberHandling.AllowReadingFromString,
+    GenerationMode = JsonSourceGenerationMode.Default)
+]
 [JsonSerializable(typeof(BuildInfoResponse))]
 [JsonSerializable(typeof(LoginRequest))]
 [JsonSerializable(typeof(LoginResponse))]

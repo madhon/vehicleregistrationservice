@@ -1,5 +1,3 @@
 ﻿namespace VehicleRegistrationService.Model;
 
-public class BuildInfoResponse
-{
-}
+public class BuildInfoResponse;

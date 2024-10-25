@@ -24,7 +24,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
 
         string publicKeyXml = File.ReadAllText("./public_key.xml");
         RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-        
+
         rsa.FromXmlString(publicKeyXml);
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
@@ -38,7 +38,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
             ClockSkew = TimeSpan.FromSeconds(15),
             RequireExpirationTime = true
         };
-        
+
         options.Events = new JwtBearerEvents
         {
             OnAuthenticationFailed = context =>

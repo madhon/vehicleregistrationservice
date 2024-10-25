@@ -1,10 +1,7 @@
 ﻿namespace VehicleRegistrationService;
 
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 internal static class WebApplicationBuilderExtensions
@@ -19,7 +16,7 @@ internal static class WebApplicationBuilderExtensions
             options.SerializerOptions.TypeInfoResolverChain.Insert(
                 0, AppJsonSerializerContext.Default);
         });
-            
+
         services.Configure<ForwardedHeadersOptions>(opts =>
         {
             opts.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -45,7 +42,7 @@ internal static class WebApplicationBuilderExtensions
         services.AddHealthChecks();
 
         services.AddProblemDetails();
-        
+
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(config =>
         {
@@ -65,7 +62,7 @@ internal static class WebApplicationBuilderExtensions
                 },
                 Array.Empty<string>()
             }});
-                
+
             config.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
             {
                 Name = "Authorization",
@@ -76,22 +73,22 @@ internal static class WebApplicationBuilderExtensions
                 BearerFormat = "JWT",
             });
         });
-            
+
         services.AddAuthorization();
 
         builder.Services
             .AddOptions<JwtOptions>()
             .Bind(builder.Configuration.GetSection(JwtOptions.SectionName));
-        
+
         builder.Services
             .AddSingleton<IValidateOptions<JwtOptions>, JwtOptionsValidator>();
-        
+
         services.AddSingleton<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
-        
+
         services.AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;  
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, null!);
     }

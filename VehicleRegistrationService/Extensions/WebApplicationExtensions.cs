@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using VehicleRegistrationService.Endpoints;
-    
+
 internal static class WebApplicationExtensions
 {
     public static void ConfigureApplication(this WebApplication app)
@@ -16,7 +16,8 @@ internal static class WebApplicationExtensions
         app.UseCors(CorsPolicyName.AllowAll);
 
         app.UseExceptionHandler();
-        
+        app.UseStatusCodePages();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
