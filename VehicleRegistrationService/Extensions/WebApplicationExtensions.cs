@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
+using Scalar.AspNetCore;
 using Serilog;
 using VehicleRegistrationService.Endpoints;
 
@@ -25,7 +26,8 @@ internal static class WebApplicationExtensions
 
         app.UseSwagger(c =>
         {
-            c.RouteTemplate = "docs/{documentName}/openapi.json";
+            //c.RouteTemplate = "docs/{documentName}/openapi.json";
+            c.RouteTemplate = "/openapi/{documentName}.json";
             c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Servers = new List<OpenApiServer>
                 { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" } });
         });
@@ -33,10 +35,12 @@ internal static class WebApplicationExtensions
         app.UseSwaggerUI(c =>
         {
             c.RoutePrefix = "docs";
-            c.SwaggerEndpoint("v1/openapi.json", "Vehicle Registration API");
+            c.SwaggerEndpoint("/openapi/v1.json", "Vehicle Registration API");
             c.DisplayRequestDuration();
             c.DefaultModelExpandDepth(-1);
         });
+
+        app.MapScalarApiReference();
 
         app.UseAuthentication();
         app.UseAuthorization();
