@@ -1,5 +1,5 @@
-ARG RUNTIMEVERSION=8.0-azurelinux3.0-distroless
-ARG SDKVERSION=8.0-azurelinux3.0
+ARG RUNTIMEVERSION=9.0-azurelinux3.0-distroless
+ARG SDKVERSION=9.0-azurelinux3.0
 
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
 WORKDIR /src
