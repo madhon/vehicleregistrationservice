@@ -47,8 +47,26 @@ internal static class WebApplicationBuilderExtensions
         services.AddHealthChecks();
 
         services.AddProblemDetails();
+        services.AddEndpointsApiExplorer();
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, _, _) =>
+            {
+                document.Info = new OpenApiInfo
+                {
+                    Title = "Vehicle Registration API",
+                    Version = "1.0.0",
+                    Description = "Vehicle Registration API",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Vehicle Registration API Team",
+                    }
+                };
 
-        services.AddOpenApi();
+                return Task.CompletedTask;
+            });
+            options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+        });
 
         services.AddAuthorization();
 

@@ -6,7 +6,7 @@ public static class VehicleRegistrationApi
 {
     public static RouteGroupBuilder MapVehicleRegistrationApi(this IEndpointRouteBuilder routes)
     {
-        routes.MapGet("/", () => TypedResults.LocalRedirect("~/scalar/v1"));
+        routes.MapGet("/", () => TypedResults.LocalRedirect("~/scalar/v1")).ExcludeFromDescription();
 
         var group = routes.MapGroup("api/v1/");
 

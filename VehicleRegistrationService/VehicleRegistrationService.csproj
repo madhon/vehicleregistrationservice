@@ -10,7 +10,9 @@
     <Nullable>Enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
     <OutputType>exe</OutputType>
-    <!--<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>-->     
+    <!--<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>-->
+    <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
+    <OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
   </PropertyGroup>
 
   <ItemGroup>
