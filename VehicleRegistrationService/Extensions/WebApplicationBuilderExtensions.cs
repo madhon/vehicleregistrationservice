@@ -36,6 +36,11 @@ internal static class WebApplicationBuilderExtensions
             });
         });
 
+        builder.Services.AddOutputCache(options =>
+        {
+            options.AddBasePolicy(policy => policy.Expire(TimeSpan.FromMinutes(10)));
+        });
+
         services.AddResponseCaching();
         services.AddResponseCompression();
 
@@ -43,36 +48,7 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddProblemDetails();
 
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(config =>
-        {
-            config.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Version = "v1",
-                Title = "Vehicle Registration API"
-            });
-
-            config.AddSecurityRequirement(new OpenApiSecurityRequirement {
-            {
-                new OpenApiSecurityScheme {
-                    Reference = new OpenApiReference {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = JwtBearerDefaults.AuthenticationScheme
-                    }
-                },
-                Array.Empty<string>()
-            }});
-
-            config.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
-            {
-                Name = "Authorization",
-                Description = "Input your Bearer token to access this API",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                Scheme = JwtBearerDefaults.AuthenticationScheme,
-                BearerFormat = "JWT",
-            });
-        });
+        services.AddOpenApi();
 
         services.AddAuthorization();
 

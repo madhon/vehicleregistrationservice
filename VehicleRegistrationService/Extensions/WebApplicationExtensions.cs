@@ -24,22 +24,7 @@ internal static class WebApplicationExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        app.UseSwagger(c =>
-        {
-            //c.RouteTemplate = "docs/{documentName}/openapi.json";
-            c.RouteTemplate = "/openapi/{documentName}.json";
-            c.PreSerializeFilters.Add((swagger, httpReq) => swagger.Servers = new List<OpenApiServer>
-                { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{httpReq.PathBase.Value}" } });
-        });
-
-        app.UseSwaggerUI(c =>
-        {
-            c.RoutePrefix = "docs";
-            c.SwaggerEndpoint("/openapi/v1.json", "Vehicle Registration API");
-            c.DisplayRequestDuration();
-            c.DefaultModelExpandDepth(-1);
-        });
-
+        app.MapOpenApi().CacheOutput();
         app.MapScalarApiReference();
 
         app.UseAuthentication();
