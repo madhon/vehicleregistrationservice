@@ -25,7 +25,10 @@ internal static class WebApplicationExtensions
         }
 
         app.MapOpenApi().CacheOutput();
-        app.MapScalarApiReference();
+        app.MapScalarApiReference(opts =>
+        {
+            opts.DefaultFonts = false;
+        });
 
         app.UseAuthentication();
         app.UseAuthorization();

@@ -63,6 +63,8 @@ internal static class WebApplicationBuilderExtensions
                     }
                 };
 
+                document.Servers = [];
+
                 return Task.CompletedTask;
             });
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
