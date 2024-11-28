@@ -29,7 +29,7 @@ public abstract class BaseNameGenerator
 
         List<string> list = [];
 
-        var streamReader = new StreamReader(stream);
+        using var streamReader = new StreamReader(stream);
 
         while (streamReader.ReadLine() is { } str)
         {
@@ -49,7 +49,7 @@ public abstract class BaseNameGenerator
         int numberRead;
         List<string> list = [];
 
-        var streamReader = new StreamReader(stream);
+        using var streamReader = new StreamReader(stream);
         while ((numberRead = streamReader.ReadBlock(buffer)) > 0)
         {
             list.Add(buffer[..numberRead].ToString() );

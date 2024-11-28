@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿/*using System.IO;
 using System.IO.Compression;
 
 namespace RandomNameGeneratorLibrary
@@ -33,4 +33,4 @@ namespace RandomNameGeneratorLibrary
                     .ReadToEnd();
         }
     }
-}
+}*/

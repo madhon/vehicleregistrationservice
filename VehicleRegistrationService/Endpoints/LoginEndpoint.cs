@@ -34,7 +34,7 @@ internal static partial class LoginEndpoint
         var now = DateTime.UtcNow;
         var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
 
-        var signingAudienceCertificate = new SigningAudienceCertificate();
+        using var signingAudienceCertificate = new SigningAudienceCertificate();
 
         //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
         //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

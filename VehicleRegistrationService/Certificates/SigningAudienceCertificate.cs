@@ -3,7 +3,7 @@ namespace VehicleRegistrationService.Certificates;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 
-public class SigningAudienceCertificate : IDisposable
+internal sealed class SigningAudienceCertificate : IDisposable
 {
     private readonly RSA rsa = RSA.Create();
 
