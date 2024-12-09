@@ -66,7 +66,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           
       - name: Scan Docker image (Anchore)
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v5.3.0
         id: scan
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
@@ -78,16 +78,16 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif }}
           
           
-#      - name: Scan Docker Image
-#        id: container-scan
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-#          format: 'sarif'
-#          output: 'trivy-results.sarif'
+      - name: Scan Docker Image
+        id: container-scan
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          format: 'sarif'
+          output: 'trivy-results.sarif'
       
-#      - name: Upload Trivy results to GitHub
-#        uses: github/codeql-action/upload-sarif@v3
-#        with:
-#          sarif_file: 'trivy-results.sarif'
+      - name: Upload Trivy results to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
 
