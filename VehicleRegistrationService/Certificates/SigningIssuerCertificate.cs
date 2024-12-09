@@ -14,7 +14,7 @@ internal sealed class SigningIssuerCertificate : IDisposable
 
     public RsaSecurityKey GetIssuerSigningKey()
     {
-        string publicXmlKey = File.ReadAllText("./public_key.xml");
+        var publicXmlKey = File.ReadAllText("./public_key.xml");
         rsa.FromXmlString(publicXmlKey);
 
         return new RsaSecurityKey(rsa);

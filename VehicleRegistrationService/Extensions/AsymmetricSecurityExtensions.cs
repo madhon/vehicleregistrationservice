@@ -29,7 +29,7 @@ internal static class AsymmetricSecurityExtensions
                     ValidAudience = configuration["JWT:ValidAudience"],
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    RequireExpirationTime = true
+                    RequireExpirationTime = true,
                 };
             });
 

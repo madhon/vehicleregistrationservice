@@ -1,11 +1,13 @@
 ﻿namespace VehicleRegistrationService;
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
 
 internal static class WebApplicationBuilderExtensions
 {
+    [SuppressMessage("Design", "MA0051:Method is too long")]
     public static void RegisterServices(this WebApplicationBuilder builder)
     {
         var services = builder.Services;
@@ -28,9 +30,9 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddCors(options =>
         {
-            options.AddPolicy(CorsPolicyName.AllowAll, builder =>
+            options.AddPolicy(CorsPolicyName.AllowAll, corsBuilder =>
             {
-                builder.AllowAnyOrigin()
+                corsBuilder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             });
@@ -60,7 +62,7 @@ internal static class WebApplicationBuilderExtensions
                     Contact = new OpenApiContact
                     {
                         Name = "Vehicle Registration API Team",
-                    }
+                    },
                 };
 
                 document.Servers = [];

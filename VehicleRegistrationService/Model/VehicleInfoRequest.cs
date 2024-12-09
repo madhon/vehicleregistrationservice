@@ -1,5 +1,5 @@
 ﻿namespace VehicleRegistrationService.Model;
 
-using System.ComponentModel;
+using System.Runtime.InteropServices;
 
-public record VehicleInfoRequest([DefaultValue("Test")] string LicenseNumber);
+public record VehicleInfoRequest([DefaultParameterValue("Test"), Optional] string LicenseNumber);

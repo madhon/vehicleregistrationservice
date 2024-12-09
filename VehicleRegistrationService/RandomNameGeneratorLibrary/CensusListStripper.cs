@@ -2,6 +2,7 @@
 
 namespace RandomNameGeneratorLibrary
 {
+    using System.Globalization;
     using System.Runtime.InteropServices;
 
     public partial class CensusListStripper
@@ -35,12 +36,12 @@ namespace RandomNameGeneratorLibrary
 
         private static string ConvertToStandardCasing(string uppercaseName)
         {
-            var str = uppercaseName.ToLower();
+            var str = uppercaseName.ToLower(CultureInfo.InvariantCulture);
 
-            return str[0].ToString().ToUpper() + str.Remove(0, 1);
+            return str[0].ToString().ToUpper(CultureInfo.InvariantCulture) + str.Remove(0, 1);
         }
 
-        [GeneratedRegex("\\d")]
+        [GeneratedRegex("\\d", RegexOptions.None, matchTimeoutMilliseconds: 1000)]
         private static partial Regex RemoveDigitsRegex();
 
         public static string RemoveDigits(string key)

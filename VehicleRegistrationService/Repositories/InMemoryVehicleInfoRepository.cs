@@ -18,7 +18,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         "Kia", "Citroën", "Suzuki", "Mitsubishi", "Fiat", "Toyota", "Opel"
     ];
 
-    private readonly Dictionary<string, string[]> models = new()
+    private readonly Dictionary<string, string[]> models = new(StringComparer.OrdinalIgnoreCase)
     {
         { "Mercedes", ["A Class", "B Class", "C Class", "E Class", "SLS", "SLK"] },
         { "Toyota", ["Yaris", "CHR", "Rav 4", "Prius", "Celica"] },
@@ -34,7 +34,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         { "Ford", ["Focus", "Ka", "C-Max", "Fusion", "Fiesta", "Mondeo", "Kuga"] },
         { "BMW", ["1 Series", "2 Series", "3 Series", "5 Series", "7 Series", "X5"] },
         { "Fiat", ["500", "Panda", "Punto", "Tipo", "Multipla"] },
-        { "Opel", ["Karl", "Corsa", "Astra", "Crossland X", "Insignia"] }
+        { "Opel", ["Karl", "Corsa", "Astra", "Crossland X", "Insignia"] },
     };
 
     public InMemoryVehicleInfoRepository()
@@ -78,7 +78,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
     private string GetRandomModel(string brand)
     {
-        var models = this.models[brand];
-        return models[_rnd.Next(models.Length)];
+        var rndModels = this.models[brand];
+        return rndModels[_rnd.Next(rndModels.Length)];
     }
 }
