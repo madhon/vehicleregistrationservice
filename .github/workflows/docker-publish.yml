@@ -68,8 +68,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           
       - name: Scan Docker image (Anchore)
-        uses: anchore/scan-action@v5.3.0
-        id: scan
+        uses: anchore/scan-action@v6
+        id: anchore-scan
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           output-format: 'sarif'
@@ -77,11 +77,11 @@ jobs:
       - name: Upload Anchore results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.scan.outputs.sarif }}
+          sarif_file: ${{ steps.anchore-scan.outputs.sarif }}
           
           
-      - name: Scan Docker Image
-        id: container-scan
+      - name: Scan Docker Image (Trivy)
+        id: trivy-scan
         uses: aquasecurity/trivy-action@0.29.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
