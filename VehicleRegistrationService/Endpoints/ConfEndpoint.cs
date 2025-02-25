@@ -9,7 +9,8 @@ internal static class ConfEndpoint
                 var configKv = config?.AsEnumerable();
                 return TypedResults.Ok(configKv);
             })
-            .AllowAnonymous()
+            .Produces<UnauthorizedHttpResult>()
+            .RequireAuthorization()
             .WithName("conf")
             .WithDescription("Get Config Info")
             .WithTags("conf");

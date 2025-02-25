@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 internal static class WebApplicationBuilderExtensions
 {
     [SuppressMessage("Design", "MA0051:Method is too long")]
-    public static void RegisterServices(this WebApplicationBuilder builder)
+    public static IHostApplicationBuilder RegisterServices(this IHostApplicationBuilder builder)
     {
         var services = builder.Services;
         var configuration = builder.Configuration;
@@ -89,5 +89,7 @@ internal static class WebApplicationBuilderExtensions
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, null!);
+
+        return builder;
     }
 }

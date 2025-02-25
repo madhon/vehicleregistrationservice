@@ -14,9 +14,9 @@ internal static class SerilogExtensions
 
         builder.Host.UseSerilog((context, loggerConfiguration) =>
         {
-            var options = new ConfigurationReaderOptions()
+            var options = new ConfigurationReaderOptions
             {
-                SectionName = sectionName
+                SectionName = sectionName,
             };
 
             loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);

@@ -1,7 +1,6 @@
 ﻿namespace VehicleRegistrationService;
 
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using Serilog;
 using VehicleRegistrationService.Endpoints;
@@ -25,10 +24,7 @@ internal static class WebApplicationExtensions
         }
 
         app.MapOpenApi().CacheOutput();
-        app.MapScalarApiReference(opts =>
-        {
-            opts.DefaultFonts = false;
-        });
+        app.MapScalarApiReference(opts => opts.DefaultFonts = false);
 
         app.UseAuthentication();
         app.UseAuthorization();
