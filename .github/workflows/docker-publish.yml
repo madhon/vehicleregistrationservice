@@ -26,11 +26,6 @@ jobs:
       security-events: write
 
     steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
-        with:
-          egress-policy: audit
-          
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -88,7 +83,7 @@ jobs:
           
       - name: Scan Docker Image (Trivy)
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.30.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           format: 'sarif'
