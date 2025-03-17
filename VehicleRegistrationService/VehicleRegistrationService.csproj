@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>13.0</LangVersion>
@@ -8,28 +7,24 @@
     <AspNetCoreModuleName>AspNetCoreModuleV2</AspNetCoreModuleName>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <Nullable>Enable</Nullable>
-	<ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>exe</OutputType>
     <!--<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>-->
     <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
     <OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
   </PropertyGroup>
-
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.GC.DynamicAdaptationMode" Value="1" />
   </ItemGroup>
-  
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
     <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
     <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup>
     <WarningsAsErrors>$(WarningsAsErrors);SYSLIB1045;CA1309;CA1310;CA1831;CA1832;CA1833;CA1827;CA1860;CA1820;CA1829;CA1845;CA1846;CA1848;CA1851;CA1852;IDE0028;IDE0030</WarningsAsErrors>
   </PropertyGroup>
-  
   <ItemGroup>
     <None Remove="RandomNameGeneratorLibrary\Resources\dist.all.last.stripped" />
     <None Remove="RandomNameGeneratorLibrary\Resources\dist.female.first.stripped" />
@@ -42,14 +37,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.all.last.stripped" />
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.female.first.stripped" />
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\dist.male.first.stripped" />
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Meziantou.Analyzer" Version="2.0.188">
       <PrivateAssets>all</PrivateAssets>
@@ -64,10 +57,10 @@
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.6.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.3.0" />    
+    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.0.29" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.0.36" />
     <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
@@ -89,5 +82,8 @@
     </PackageReference>
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
   </ItemGroup>
-
+  <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
+    <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
+    <Exec Command="dotnet husky install" StandardOutputImportance="Low" StandardErrorImportance="High" WorkingDirectory=".." />
+  </Target>
 </Project>

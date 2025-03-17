@@ -7,6 +7,9 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
+env:
+  HUSKY : 0
+  
 permissions: read-all
 
 jobs:

@@ -10,6 +10,9 @@ on:
     - cron: '0 14 * * 4'
   workflow_dispatch:
 
+env:
+  HUSKY : 0
+
 permissions: read-all
 
 jobs:
