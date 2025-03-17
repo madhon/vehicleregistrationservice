@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".github/workflows/actions-update.yml" />
+    <File Path=".github/workflows/codeql-analysis.yml" />
+    <File Path=".github/workflows/devsecops-analysis.yml" />
+    <File Path=".github/workflows/docker-publish.yml" />
+  </Folder>
+  <Project Path="VehicleRegistrationService/VehicleRegistrationService.csproj" />
+</Solution>
