@@ -1,6 +1,7 @@
 ﻿namespace VehicleRegistrationService;
 
 using System.Diagnostics.CodeAnalysis;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
@@ -49,6 +50,15 @@ internal static class WebApplicationBuilderExtensions
         services.AddHealthChecks();
 
         services.AddProblemDetails();
+
+        services.AddApiVersioning(opt =>
+        {
+            opt.ReportApiVersions = true;
+            opt.AssumeDefaultVersionWhenUnspecified = true;
+            opt.DefaultApiVersion = new ApiVersion(1, 0);
+            opt.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
+        });
+
         services.AddEndpointsApiExplorer();
         services.AddOpenApi(options =>
         {

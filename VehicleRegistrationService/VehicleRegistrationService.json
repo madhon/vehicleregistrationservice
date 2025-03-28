@@ -50,7 +50,7 @@
         }
       }
     },
-    "/api/v1/login": {
+    "/api/login": {
       "post": {
         "tags": [
           "login"
@@ -81,7 +81,7 @@
         }
       }
     },
-    "/api/v1/vehicleinfo/{licenseNumber}": {
+    "/api/vehicleinfo/{licenseNumber}": {
       "get": {
         "tags": [
           "vehicleinfo"
