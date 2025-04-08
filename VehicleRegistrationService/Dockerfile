@@ -1,4 +1,4 @@
-ARG RUNTIMEVERSION=9.0-noble-chiseled-extra
+ARG RUNTIMEVERSION=9.0-noble-chiseled
 ARG SDKVERSION=9.0-noble
 
 
