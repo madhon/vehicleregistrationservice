@@ -12,15 +12,8 @@ internal static class SerilogExtensions
         var serilogOptions = new SerilogOptions();
         builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
 
-        builder.Host.UseSerilog((context, loggerConfiguration) =>
+        builder.Services.AddSerilog(loggerConfiguration =>
         {
-            var options = new ConfigurationReaderOptions
-            {
-                SectionName = sectionName,
-            };
-
-            loggerConfiguration.ReadFrom.Configuration(context.Configuration, options);
-
             loggerConfiguration
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                 .Enrich.FromLogContext()
@@ -32,9 +25,7 @@ internal static class SerilogExtensions
             if (serilogOptions.UseConsole)
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
-                {
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate);
-                });
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate));
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
