@@ -34,7 +34,7 @@ networks:
 
 
 # reverseproxy:
-#  image: traefik:v2.9
+#  image: traefik:v3.3
 #  pull_policy: always
 #  restart: unless-stopped
 #  container_name: traefikproxy
