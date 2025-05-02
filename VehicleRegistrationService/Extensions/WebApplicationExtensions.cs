@@ -1,6 +1,6 @@
 ﻿namespace VehicleRegistrationService;
 
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 using Scalar.AspNetCore;
 using Serilog;
 using VehicleRegistrationService.Endpoints;
@@ -24,7 +24,11 @@ internal static class WebApplicationExtensions
         }
 
         app.MapOpenApi().CacheOutput();
-        app.MapScalarApiReference(opts => opts.DefaultFonts = false);
+        app.MapScalarApiReference(opts =>
+        {
+            opts.DefaultFonts = false;
+            opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+        });
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -32,9 +36,7 @@ internal static class WebApplicationExtensions
         //app.UseResponseCompression();
         app.UseResponseCaching();
 
-        app.MapHealthChecks("/health/startup");
-        app.MapHealthChecks("/healthz", new HealthCheckOptions { Predicate = _ => false });
-        app.MapHealthChecks("/ready", new HealthCheckOptions { Predicate = _ => false });
+        app.MapDefaultEndpoints();
 
         app.MapEnvEndpoint();
         app.MapConfEndpoint();

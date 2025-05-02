@@ -47,7 +47,8 @@ internal static class WebApplicationBuilderExtensions
         services.AddResponseCaching();
         services.AddResponseCompression();
 
-        services.AddHealthChecks();
+        builder.AddDefaultHealthChecks();
+        builder.ConfigureOpenTelemetry();
 
         services.AddProblemDetails();
 
