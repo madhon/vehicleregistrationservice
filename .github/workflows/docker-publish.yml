@@ -83,7 +83,7 @@ jobs:
           
       - name: Scan Docker Image (Trivy)
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           format: 'sarif'
