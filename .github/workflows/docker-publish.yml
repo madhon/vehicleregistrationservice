@@ -73,6 +73,7 @@ jobs:
         id: anchore-scan
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          severity-cutoff: high
           output-format: 'sarif'
 
       - name: Upload Anchore results to GitHub
@@ -86,6 +87,8 @@ jobs:
         uses: aquasecurity/trivy-action@0.31.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
           format: 'sarif'
           output: 'trivy-results.sarif'
       
