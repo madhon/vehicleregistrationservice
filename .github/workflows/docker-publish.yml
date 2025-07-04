@@ -84,7 +84,7 @@ jobs:
           
       - name: Scan Docker Image (Trivy)
         id: trivy-scan
-        uses: aquasecurity/trivy-action@0.31.0
+        uses: aquasecurity/trivy-action@0.32.0
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           vuln-type: 'os,library'
