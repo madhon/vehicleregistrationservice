@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace RandomNameGeneratorLibrary
+﻿namespace RandomNameGeneratorLibrary
 {
-    public interface IPersonNameGenerator
+    internal interface IPersonNameGenerator
     {
         string GenerateRandomFirstAndLastName();
 

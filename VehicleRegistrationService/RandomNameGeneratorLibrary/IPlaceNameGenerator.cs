@@ -2,7 +2,7 @@
 
 namespace RandomNameGeneratorLibrary
 {
-    public interface IPlaceNameGenerator
+    internal interface IPlaceNameGenerator
     {
         string GenerateRandomPlaceName();
 

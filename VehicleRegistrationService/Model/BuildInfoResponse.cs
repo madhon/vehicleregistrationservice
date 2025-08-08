@@ -1,3 +1,3 @@
 ﻿namespace VehicleRegistrationService.Model;
 
-public class BuildInfoResponse;
+internal sealed class BuildInfoResponse;

@@ -22,8 +22,10 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
 
         var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
 
-        string publicKeyXml = File.ReadAllText("./public_key.xml");
-        RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+        var publicKeyXml = File.ReadAllText("./public_key.xml");
+#pragma warning disable CA2000
+        var rsa = new RSACryptoServiceProvider();
+#pragma warning restore CA2000
 
         rsa.FromXmlString(publicKeyXml);
         options.SaveToken = true;
@@ -36,7 +38,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new RsaSecurityKey(rsa),
             ClockSkew = TimeSpan.FromSeconds(15),
-            RequireExpirationTime = true
+            RequireExpirationTime = true,
         };
 
         options.Events = new JwtBearerEvents
@@ -48,7 +50,7 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
                     context.Response.Headers.Append("Token-Expired", "true");
                 }
                 return Task.CompletedTask;
-            }
+            },
         };
     }
 }

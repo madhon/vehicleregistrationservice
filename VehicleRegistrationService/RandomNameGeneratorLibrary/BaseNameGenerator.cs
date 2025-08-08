@@ -2,19 +2,12 @@
 
 using System.Reflection;
 
-public abstract class BaseNameGenerator
+internal abstract class BaseNameGenerator
 {
     private const string ResourcePathPrefix = "VehicleRegistrationService.RandomNameGeneratorLibrary.Resources.";
-    protected readonly Random RandGen;
 
     protected BaseNameGenerator()
     {
-        RandGen = new Random();
-    }
-
-    protected BaseNameGenerator(Random randGen)
-    {
-        RandGen = randGen;
     }
 
     private static Stream ReadResourceStreamForFileName(string resourceFileName)

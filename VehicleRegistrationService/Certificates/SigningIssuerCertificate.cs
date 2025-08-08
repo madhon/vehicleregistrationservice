@@ -5,12 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 internal sealed class SigningIssuerCertificate : IDisposable
 {
-    private readonly RSA rsa;
-
-    public SigningIssuerCertificate()
-    {
-        rsa = RSA.Create();
-    }
+    private readonly RSA rsa = RSA.Create();
 
     public RsaSecurityKey GetIssuerSigningKey()
     {

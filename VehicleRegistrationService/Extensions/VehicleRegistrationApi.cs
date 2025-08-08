@@ -2,7 +2,7 @@ namespace VehicleRegistrationService;
 
 using VehicleRegistrationService.Endpoints;
 
-public static class VehicleRegistrationApi
+internal static class VehicleRegistrationApi
 {
     public static RouteGroupBuilder MapVehicleRegistrationApi(this IEndpointRouteBuilder routes)
     {

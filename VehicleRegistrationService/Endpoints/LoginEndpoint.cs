@@ -35,7 +35,9 @@ internal static partial class LoginEndpoint
         var now = DateTime.UtcNow;
         var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
 
+#pragma warning disable CA2000
         var signingAudienceCertificate = new SigningAudienceCertificate();
+#pragma warning restore CA2000
 
         //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
         //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

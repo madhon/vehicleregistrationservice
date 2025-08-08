@@ -16,7 +16,7 @@ internal static partial class GetVehicleEndpoint
         return builder;
     }
 
-    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>> 
+    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>
         HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
     {
         var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");

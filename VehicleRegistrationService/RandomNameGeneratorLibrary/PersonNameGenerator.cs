@@ -1,6 +1,8 @@
 ﻿namespace RandomNameGeneratorLibrary;
 
-public class PersonNameGenerator : BaseNameGenerator, IPersonNameGenerator
+using System.Security.Cryptography;
+
+internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenerator
 {
     private const string MaleFile = "dist.male.first.stripped";
     private const string FemaleFile = "dist.female.first.stripped";
@@ -14,13 +16,7 @@ public class PersonNameGenerator : BaseNameGenerator, IPersonNameGenerator
         InitNames();
     }
 
-    public PersonNameGenerator(Random randGen) : base(randGen)
-    {
-        ArgumentNullException.ThrowIfNull(randGen);
-        InitNames();
-    }
-
-    private bool RandomlyPickIfNameIsMale => RandGen.Next(0, 2) == 0;
+    private static bool RandomlyPickIfNameIsMale => RandomNumberGenerator.GetInt32(0, 2) == 0;
 
     public string GenerateRandomFirstAndLastName()
     {
@@ -29,7 +25,7 @@ public class PersonNameGenerator : BaseNameGenerator, IPersonNameGenerator
 
     public string GenerateRandomLastName()
     {
-        var index = RandGen.Next(0, _lastNames.Length);
+        var index = RandomNumberGenerator.GetInt32(0, _lastNames.Length);
 
         return _lastNames.AsSpan()[index];
     }
@@ -43,14 +39,14 @@ public class PersonNameGenerator : BaseNameGenerator, IPersonNameGenerator
 
     public string GenerateRandomFemaleFirstName()
     {
-        var index = RandGen.Next(0, _femaleFirstNames.Length);
+        var index = RandomNumberGenerator.GetInt32(0, _femaleFirstNames.Length);
 
         return _femaleFirstNames.AsSpan()[index];
     }
 
     public string GenerateRandomMaleFirstName()
     {
-        var index = RandGen.Next(0, _maleFirstNames.Length);
+        var index = RandomNumberGenerator.GetInt32(0, _maleFirstNames.Length);
 
         return _maleFirstNames.AsSpan()[index];
     }

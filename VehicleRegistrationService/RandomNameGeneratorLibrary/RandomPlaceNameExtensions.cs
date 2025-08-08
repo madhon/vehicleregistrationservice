@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace RandomNameGeneratorLibrary;
 
-namespace RandomNameGeneratorLibrary
+internal static class RandomPlaceNameExtensions
 {
-    public static class RandomPlaceNameExtensions
+    public static string GenerateRandomPlaceName(this Random rand)
     {
-        public static string GenerateRandomPlaceName(this Random rand)
-        {
-            return new PlaceNameGenerator(rand).GenerateRandomPlaceName();
-        }
+        return new PlaceNameGenerator().GenerateRandomPlaceName();
+    }
 
-        public static IEnumerable<string> GenerateMultiplePlaceNames(this Random rand, int numberOfNames)
-        {
-            return new PlaceNameGenerator(rand).GenerateMultiplePlaceNames(numberOfNames);
-        }
+    public static IEnumerable<string> GenerateMultiplePlaceNames(this Random rand, int numberOfNames)
+    {
+        return new PlaceNameGenerator().GenerateMultiplePlaceNames(numberOfNames);
     }
 }

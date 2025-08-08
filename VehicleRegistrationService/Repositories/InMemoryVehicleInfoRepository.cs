@@ -3,13 +3,12 @@
 using RandomNameGeneratorLibrary;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading;
 using VehicleRegistrationService.Model;
 
 internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 {
-    private readonly Random _rnd;
-
     private readonly PersonNameGenerator nameGenerator;
 
     private readonly string[] vehicleBrands =
@@ -39,14 +38,13 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
     public InMemoryVehicleInfoRepository()
     {
-        _rnd = new Random();
-        nameGenerator = new PersonNameGenerator(_rnd);
+        nameGenerator = new PersonNameGenerator();
     }
 
     public VehicleInfo GetVehicleInfo(string licenseNumber)
     {
         // simulate slow IO
-        Thread.Sleep(_rnd.Next(5, 200));
+        Thread.Sleep(RandomNumberGenerator.GetInt32(5, 200));
 
         // get random vehicle info
         var brand = GetRandomBrand();
@@ -54,7 +52,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
         // get random owner info
         var ownerName = nameGenerator.GenerateRandomFirstAndLastName();
-        var ownerEmail = $"{ownerName.ToLowerInvariant().Replace(' ', '.')}@outlook.com";
+        var ownerEmail = $"{ownerName.Replace(' ', '.')}@outlook.com";
 
         if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
         {
@@ -73,12 +71,12 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
     private string GetRandomBrand()
     {
-        return vehicleBrands[_rnd.Next(vehicleBrands.Length)];
+        return vehicleBrands[RandomNumberGenerator.GetInt32(vehicleBrands.Length)];
     }
 
     private string GetRandomModel(string brand)
     {
         var rndModels = this.models[brand];
-        return rndModels[_rnd.Next(rndModels.Length)];
+        return rndModels[RandomNumberGenerator.GetInt32(rndModels.Length)];
     }
 }

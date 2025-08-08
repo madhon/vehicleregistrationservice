@@ -8,7 +8,9 @@ internal static class AsymmetricSecurityExtensions
 {
     public static IServiceCollection AddAsymmetricAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
+#pragma warning disable CA2000
         var issuerSigningCertificate  = new SigningIssuerCertificate();
+#pragma warning restore CA2000
         var issuerSigningKey = issuerSigningCertificate.GetIssuerSigningKey();
 
         services.AddAuthentication(opt => {

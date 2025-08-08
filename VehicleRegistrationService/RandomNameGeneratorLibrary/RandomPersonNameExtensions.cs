@@ -1,107 +1,107 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace RandomNameGeneratorLibrary;
 
-namespace RandomNameGeneratorLibrary
+internal static class RandomPersonNameExtensions
 {
-    public static class RandomPersonNameExtensions
+    public static string GenerateRandomFirstName(this Random rand)
     {
-        public static string GenerateRandomFirstName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
+        ArgumentNullException.ThrowIfNull(rand);
 
-            return new PersonNameGenerator(rand).GenerateRandomFirstName();
-        }
+        return new PersonNameGenerator().GenerateRandomFirstName();
+    }
 
-        public static string GenerateRandomLastName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
+    public static string GenerateRandomLastName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
-            return new PersonNameGenerator(rand).GenerateRandomLastName();
-        }
+        return new PersonNameGenerator().GenerateRandomLastName();
+    }
 
-        public static string GenerateRandomFemaleFirstName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
+    public static string GenerateRandomFemaleFirstName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
-            return new PersonNameGenerator(rand).GenerateRandomFemaleFirstName();
-        }
+        return new PersonNameGenerator().GenerateRandomFemaleFirstName();
+    }
 
-        public static string GenerateRandomMaleFirstName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-
-            return new PersonNameGenerator(rand).GenerateRandomMaleFirstName();
-        }
-
-        public static string GenerateRandomFemaleFirstAndLastName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-
-            return new PersonNameGenerator(rand).GenerateRandomFemaleFirstAndLastName();
-        }
+    public static string GenerateRandomMaleFirstName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
 
-        public static string GenerateRandomMaleFirstAndLastName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
+        return new PersonNameGenerator().GenerateRandomMaleFirstName();
+    }
 
-            return new PersonNameGenerator(rand).GenerateRandomMaleFirstAndLastName();
-        }
+    public static string GenerateRandomFemaleFirstAndLastName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
 
-        public static string GenerateRandomFirstAndLastName(this Random rand)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
+        return new PersonNameGenerator().GenerateRandomFemaleFirstAndLastName();
+    }
 
-            return new PersonNameGenerator(rand).GenerateRandomFirstAndLastName();
-        }
 
-        public static IEnumerable<string> GenerateMultipleFirstAndLastNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+    public static string GenerateRandomMaleFirstAndLastName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
-            return new PersonNameGenerator(rand).GenerateMultipleFirstAndLastNames(numberOfNames);
-        }
 
-        public static IEnumerable<string> GenerateMultipleLastNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+        return new PersonNameGenerator().GenerateRandomMaleFirstAndLastName();
+    }
 
-            return new PersonNameGenerator(rand).GenerateMultipleLastNames(numberOfNames);
-        }
 
-        public static IEnumerable<string> GenerateMultipleFemaleFirstAndLastNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+    public static string GenerateRandomFirstAndLastName(this Random rand)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
 
-            return new PersonNameGenerator(rand).GenerateMultipleFemaleFirstAndLastNames(numberOfNames);
-        }
 
-        public static IEnumerable<string> GenerateMultipleMaleFirstAndLastNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+        return new PersonNameGenerator().GenerateRandomFirstAndLastName();
+    }
 
-            return new PersonNameGenerator(rand).GenerateMultipleMaleFirstAndLastNames(numberOfNames);
-        }
+    public static IEnumerable<string> GenerateMultipleFirstAndLastNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
 
-        public static IEnumerable<string> GenerateMultipleFemaleFirstNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+        return new PersonNameGenerator().GenerateMultipleFirstAndLastNames(numberOfNames);
+    }
 
-            return new PersonNameGenerator(rand).GenerateMultipleFemaleFirstNames(numberOfNames);
-        }
+    public static IEnumerable<string> GenerateMultipleLastNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
 
-        public static IEnumerable<string> GenerateMultipleMaleFirstNames(this Random rand, int numberOfNames)
-        {
-            if (rand == null) throw new ArgumentNullException(nameof(rand));
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+        return new PersonNameGenerator().GenerateMultipleLastNames(numberOfNames);
+    }
 
-            return new PersonNameGenerator(rand).GenerateMultipleMaleFirstNames(numberOfNames);
-        }
+    public static IEnumerable<string> GenerateMultipleFemaleFirstAndLastNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
+
+        return new PersonNameGenerator().GenerateMultipleFemaleFirstAndLastNames(numberOfNames);
+    }
+
+    public static IEnumerable<string> GenerateMultipleMaleFirstAndLastNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
+
+        return new PersonNameGenerator().GenerateMultipleMaleFirstAndLastNames(numberOfNames);
+    }
+
+    public static IEnumerable<string> GenerateMultipleFemaleFirstNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
+
+        return new PersonNameGenerator().GenerateMultipleFemaleFirstNames(numberOfNames);
+    }
+
+    public static IEnumerable<string> GenerateMultipleMaleFirstNames(this Random rand, int numberOfNames)
+    {
+        ArgumentNullException.ThrowIfNull(rand);
+        ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
+
+        return new PersonNameGenerator().GenerateMultipleMaleFirstNames(numberOfNames);
     }
 }

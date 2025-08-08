@@ -1,6 +1,8 @@
 ﻿namespace RandomNameGeneratorLibrary
 {
-    public class PlaceNameGenerator : BaseNameGenerator, IPlaceNameGenerator
+    using System.Security.Cryptography;
+
+    internal sealed class PlaceNameGenerator : BaseNameGenerator, IPlaceNameGenerator
     {
         private const string PlaceNameFile = "places2k.txt.stripped";
         private static string[] _placeNames = null!;
@@ -10,21 +12,15 @@
             InitPlaceNames();
         }
 
-        public PlaceNameGenerator(Random randGen) : base(randGen)
-        {
-            ArgumentNullException.ThrowIfNullOrEmpty(nameof(randGen));
-            InitPlaceNames();
-        }
-
         public string GenerateRandomPlaceName()
         {
-            var index = RandGen.Next(0, _placeNames.Length);
+            var index = RandomNumberGenerator.GetInt32(0, _placeNames.Length);
             return _placeNames.AsSpan()[index];
         }
 
         public IEnumerable<string> GenerateMultiplePlaceNames(int numberOfNames)
         {
-            if (numberOfNames < 0) throw new ArgumentOutOfRangeException(nameof(numberOfNames));
+            ArgumentOutOfRangeException.ThrowIfNegative(numberOfNames);
 
             var list = new List<string>();
 
@@ -39,7 +35,9 @@
         private static void InitPlaceNames()
         {
             if (_placeNames != null)
+            {
                 return;
+            }
 
             _placeNames = ReadResourceByLine(PlaceNameFile);
         }

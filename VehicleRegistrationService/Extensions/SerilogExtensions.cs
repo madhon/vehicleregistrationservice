@@ -1,9 +1,9 @@
 ﻿namespace VehicleRegistrationService;
 
+using System.Globalization;
 using Serilog;
 using Serilog.Events;
 using Serilog.Exceptions;
-using Serilog.Settings.Configuration;
 
 internal static class SerilogExtensions
 {
@@ -25,19 +25,19 @@ internal static class SerilogExtensions
             if (serilogOptions.UseConsole)
             {
                 loggerConfiguration.WriteTo.Async(writeTo =>
-                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate));
+                    writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture));
             }
 
             if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
             {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl);
+                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
             }
         });
 
         return builder;
     }
 
-    public sealed class SerilogOptions
+    internal sealed class SerilogOptions
     {
         public bool UseConsole { get; set; } = true;
         public string? SeqUrl { get; set; }
