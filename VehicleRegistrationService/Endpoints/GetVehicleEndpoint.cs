@@ -16,7 +16,7 @@ internal static partial class GetVehicleEndpoint
         return builder;
     }
 
-    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult, BadRequest<string>>
+    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult>
         HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
     {
         var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
@@ -25,7 +25,7 @@ internal static partial class GetVehicleEndpoint
         if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
         {
             LogRestrictedLicense(logger, licenseNumber);
-            return TypedResults.BadRequest("Restricted License Plate");
+            return TypedResults.Problem("Restricted License Plate", statusCode: StatusCodes.Status400BadRequest);
         }
 
         var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
