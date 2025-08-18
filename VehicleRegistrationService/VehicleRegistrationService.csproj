@@ -68,10 +68,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.13.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.14.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.8.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="[1.6.24]" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
