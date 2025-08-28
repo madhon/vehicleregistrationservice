@@ -1,0 +1,19 @@
+meta {
+  name: Get Vehicle Info
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:57123/api/vehicleinfo/K27JSX
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjcyOTkiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjcyOTkiLCJleHAiOjE3NTU2ODQxOTYsImlhdCI6MTc1NTY4MzU5NiwianRpIjoiMjI0Y2Y4MzUtMGVkMC00YmMzLWI0ZWEtNzgzOWY2YTc2MGE3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImpvbiIsIm5iZiI6MTc1NTY4MzU5Nn0.vVe4YcCCz17o1U5Sx02Id_jYWhnseR04RgeckkgcYNWlzXRi8jhONIydG5VQKv4Z_vIheq-cGuXOHyU6unCbC0fMEqKAP0SLavsm2ZYqNYwnUK08Gc09ZTmYE2mp7lWNAjjSquK1J7mz0zhAzjckgtdNFetG_h1Q_YRSY6pwufc1WF4TH1t3BNfJiaBtyY3SbOTdIgbsBeaUEnWiBJsnx4n_DoQWz2AXw48U-0UntHkt_xXUgMezuq0Pmo1AZIoaGuJtl8SaqNpneS2nCCTeJFrR5RZE5Z0CKXI3A44PYM0CgPGFELT8LWbS3nFua5SIxgWxfhm1TuuX5x1lzvEvOA
+}
+
+settings {
+  encodeUrl: true
+}
