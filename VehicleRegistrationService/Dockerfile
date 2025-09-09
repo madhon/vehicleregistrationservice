@@ -1,5 +1,5 @@
-ARG RUNTIMEVERSION=9.0-noble-chiseled
-ARG SDKVERSION=9.0-noble
+ARG RUNTIMEVERSION=10.0-noble-chiseled
+ARG SDKVERSION=10.0-noble
 
 
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
