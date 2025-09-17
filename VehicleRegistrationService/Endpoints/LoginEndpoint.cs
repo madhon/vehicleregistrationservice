@@ -1,12 +1,13 @@
 namespace VehicleRegistrationService.Endpoints;
 
-using System.Globalization;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using VehicleRegistrationService.Certificates;
 
 internal static partial class LoginEndpoint
 {
+    private static readonly JsonWebTokenHandler TokenHandler = new();
+
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder builder)
     {
         builder.MapPost("login", HandleLogin)
@@ -20,11 +21,22 @@ internal static partial class LoginEndpoint
         return builder;
     }
 
-    private static Results<Ok<LoginResponse>, UnauthorizedHttpResult>
-        HandleLogin(LoginRequest req, ILoggerFactory loggerFactory, IOptions<JwtOptions> options)
+    private static Results<Ok<LoginResponse>, UnauthorizedHttpResult, ValidationProblem>
+        HandleLogin(LoginRequest req,
+            IValidator<LoginRequest> validator,
+            ILoggerFactory loggerFactory,
+            SigningAudienceCertificate signingAudienceCertificate,
+            IOptions<JwtOptions> options)
     {
         var logger = loggerFactory.CreateLogger("LoginEndpointV2");
-        if (!(req.UserName!.Equals("jon", StringComparison.OrdinalIgnoreCase) && req.Password!.Equals("Password1", StringComparison.Ordinal)))
+
+        var validationResult = validator.Validate(req);
+        if (!validationResult.IsValid)
+        {
+            return TypedResults.ValidationProblem(validationResult.ToDictionary());
+        }
+
+        if (!(req.UserName.Equals("jon", StringComparison.OrdinalIgnoreCase) && req.Password.Equals("Password1", StringComparison.Ordinal)))
         {
             LogUserLoginFailed(logger, req.UserName);
             return TypedResults.Unauthorized();
@@ -32,12 +44,9 @@ internal static partial class LoginEndpoint
 
         LogUserLoginSuccess(logger, req.UserName);
 
-        var now = DateTime.UtcNow;
-        var unixTimeSeconds = new DateTimeOffset(now).ToUnixTimeSeconds();
-
-#pragma warning disable CA2000
-        var signingAudienceCertificate = new SigningAudienceCertificate();
-#pragma warning restore CA2000
+        var now = DateTimeOffset.UtcNow;
+        var expiresAt = now.AddMinutes(10);
+        var unixTimeSeconds = now.ToUnixTimeSeconds();
 
         //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
         //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -45,20 +54,19 @@ internal static partial class LoginEndpoint
         {
             Issuer = options.Value.ValidIssuer,
             Audience = options.Value.ValidAudience,
-            IssuedAt = now,
-            Expires = now.AddMinutes(10),
+            IssuedAt = now.DateTime,
+            Expires = expiresAt.DateTime,
             Claims = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 { JwtRegisteredClaimNames.Iat, unixTimeSeconds.ToString(CultureInfo.InvariantCulture) },
-                { JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString() },
+                { JwtRegisteredClaimNames.Jti, Guid.CreateVersion7().ToString() },
                 { ClaimTypes.Name, "jon" },
             },
             SigningCredentials = signingAudienceCertificate.GetAudienceSigningKey(),
         };
 
-        var handler = new JsonWebTokenHandler();
-        var token = handler.CreateToken(descriptor);
-        return TypedResults.Ok(new LoginResponse { Token = token, ExpiresAt = now.AddMinutes(10) });
+        var token = TokenHandler.CreateToken(descriptor);
+        return TypedResults.Ok(new LoginResponse { Token = token, ExpiresAt = expiresAt.DateTime });
     }
 
     [LoggerMessage(

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
 
+
 internal static class WebApplicationBuilderExtensions
 {
     [SuppressMessage("Design", "MA0051:Method is too long")]
@@ -27,7 +28,12 @@ internal static class WebApplicationBuilderExtensions
             opts.KnownProxies.Clear();
         });
 
+
+        services.AddScoped<IValidator<LoginRequest>, LoginRequestValidator>();
+        services.AddScoped<IValidator<VehicleInfoRequest>, VehicleInfoRequestValidator>();
         services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
+        services.AddScoped<SigningAudienceCertificate>();
+        services.AddScoped<SigningIssuerCertificate>();
 
         services.AddCors(options =>
         {

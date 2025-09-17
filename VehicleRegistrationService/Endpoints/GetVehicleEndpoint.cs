@@ -20,6 +20,7 @@ internal static partial class GetVehicleEndpoint
         HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
     {
         var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
+
         LogRetrievingLicense(logger, licenseNumber);
 
         if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
