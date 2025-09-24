@@ -4,11 +4,20 @@ using System.Diagnostics.CodeAnalysis;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
 
 internal static class WebApplicationBuilderExtensions
 {
+    private static readonly string[] second = new[]
+            {
+                "application/json",
+                "application/problem+json",
+                "application/vnd.api+json",
+            };
+
     [SuppressMessage("Design", "MA0051:Method is too long")]
     public static IHostApplicationBuilder RegisterServices(this IHostApplicationBuilder builder)
     {
@@ -51,7 +60,13 @@ internal static class WebApplicationBuilderExtensions
         });
 
         services.AddResponseCaching();
-        services.AddResponseCompression();
+        services.AddResponseCompression(opts =>
+        {
+            opts.EnableForHttps = true;
+            opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(second);
+            opts.Providers.Add<BrotliCompressionProvider>();
+            opts.Providers.Add<GzipCompressionProvider>();
+        });
 
         builder.AddDefaultHealthChecks();
         builder.ConfigureOpenTelemetry();
@@ -87,6 +102,7 @@ internal static class WebApplicationBuilderExtensions
                 return Task.CompletedTask;
             });
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+            options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.OrdinalIgnoreCase));
         });
 
         services.AddAuthorization();
@@ -108,5 +124,41 @@ internal static class WebApplicationBuilderExtensions
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, null!);
 
         return builder;
+    }
+
+    internal static OpenApiOptions CustomSchemaIds(this OpenApiOptions config,
+        Func<Type, string?> typeSchemaTransformer,
+        bool includeValueTypes = false)
+    {
+        return config.AddSchemaTransformer((schema, context, _) =>
+        {
+            // Skip value types and strings
+            if (!includeValueTypes && 
+                (context.JsonTypeInfo.Type.IsValueType || 
+                 context.JsonTypeInfo.Type == typeof(String) || 
+                 context.JsonTypeInfo.Type == typeof(string)))
+            {
+                return Task.CompletedTask;
+            }
+
+            // Skip if the schema ID is not already set because we don't want to decorate the schema multiple times
+            if (schema.Annotations == null || !schema.Annotations.TryGetValue("x-schema-id", out var _))
+            {
+                return Task.CompletedTask;
+            }
+
+            // transform the typename based on the provided delegate
+            var transformedTypeName = typeSchemaTransformer(context.JsonTypeInfo.Type);
+
+            // Scalar - decorate the models section
+            schema.Annotations["x-schema-id"] = transformedTypeName;
+
+            // Swagger and Scalar specific:
+            // for Scalar - decorate the endpoint section
+            // for Swagger - decorate the endpoint and model sections
+            schema.Title = transformedTypeName;
+
+            return Task.CompletedTask;
+        });
     }
 }

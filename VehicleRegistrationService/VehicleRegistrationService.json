@@ -61,7 +61,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/VehicleRegistrationService.Model.LoginRequest"
               }
             }
           },
@@ -73,7 +73,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/VehicleRegistrationService.Model.LoginResponse"
                 }
               }
             }
@@ -83,7 +83,7 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Http.HttpValidationProblemDetails"
                 }
               }
             }
@@ -114,7 +114,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VehicleInfo"
+                  "$ref": "#/components/schemas/VehicleRegistrationService.Model.VehicleInfo"
                 }
               }
             }
@@ -124,7 +124,7 @@
             "content": {
               "application/problem+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
                 }
               }
             }
@@ -135,7 +135,25 @@
   },
   "components": {
     "schemas": {
-      "HttpValidationProblemDetails": {
+      "KeyValuePairOfstringAndstring": {
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.HttpValidationProblemDetails": {
+        "title": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
         "type": "object",
         "properties": {
           "type": {
@@ -170,51 +188,8 @@
           }
         }
       },
-      "KeyValuePairOfstringAndstring": {
-        "required": [
-          "key",
-          "value"
-        ],
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "nullable": true
-          },
-          "value": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      },
-      "LoginRequest": {
-        "required": [
-          "userName",
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "userName": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string"
-          },
-          "expiresAt": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ProblemDetails": {
+      "Microsoft.AspNetCore.Mvc.ProblemDetails": {
+        "title": "Microsoft.AspNetCore.Mvc.ProblemDetails",
         "type": "object",
         "properties": {
           "type": {
@@ -240,7 +215,37 @@
           }
         }
       },
-      "VehicleInfo": {
+      "VehicleRegistrationService.Model.LoginRequest": {
+        "title": "VehicleRegistrationService.Model.LoginRequest",
+        "required": [
+          "userName",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "VehicleRegistrationService.Model.LoginResponse": {
+        "title": "VehicleRegistrationService.Model.LoginResponse",
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "VehicleRegistrationService.Model.VehicleInfo": {
+        "title": "VehicleRegistrationService.Model.VehicleInfo",
         "required": [
           "vehicleId",
           "brand",

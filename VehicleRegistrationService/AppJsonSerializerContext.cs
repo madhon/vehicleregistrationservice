@@ -5,7 +5,7 @@
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
     DefaultIgnoreCondition = JsonIgnoreCondition.Never,
     NumberHandling = JsonNumberHandling.AllowReadingFromString,
-    GenerationMode = JsonSourceGenerationMode.Default)
+    GenerationMode = JsonSourceGenerationMode.Default),
 ]
 [JsonSerializable(typeof(BuildInfoResponse))]
 [JsonSerializable(typeof(LoginRequest))]
