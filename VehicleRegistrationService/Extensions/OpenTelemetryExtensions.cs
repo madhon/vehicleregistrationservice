@@ -8,6 +8,9 @@ using OpenTelemetry.Trace;
 
 internal static class OpenTelemetryExtensions
 {
+    private const string HealthEndpointPath = "/healthz";
+    private const string AlivenessEndpointPath = "/alive";
+
     public static IHostApplicationBuilder ConfigureOpenTelemetry(this IHostApplicationBuilder builder)
     {
         builder.Logging.AddOpenTelemetry(logging =>
@@ -33,7 +36,15 @@ internal static class OpenTelemetryExtensions
                 }
 
                 tracing
-                    .AddAspNetCoreInstrumentation(nci => nci.RecordException = true);
+                    .AddAspNetCoreInstrumentation(nci =>
+                    {
+                        nci.RecordException = true;
+                        nci.Filter = httpContext =>
+                            !(httpContext.Request.Path.StartsWithSegments(HealthEndpointPath,
+                                  StringComparison.OrdinalIgnoreCase)
+                              || httpContext.Request.Path.StartsWithSegments(AlivenessEndpointPath,
+                                  StringComparison.OrdinalIgnoreCase));
+                    });
             });
 
         builder.AddOpenTelemetryExporters();
@@ -81,10 +92,10 @@ internal static class OpenTelemetryExtensions
         if (app.Environment.IsDevelopment())
         {
             // All health checks must pass for app to be considered ready to accept traffic after starting
-            app.MapHealthChecks("/healthz");
+            app.MapHealthChecks(HealthEndpointPath);
 
             // Only health checks tagged with the "live" tag must pass for app to be considered alive
-            app.MapHealthChecks("/alive", new HealthCheckOptions
+            app.MapHealthChecks(AlivenessEndpointPath, new HealthCheckOptions
             {
                 Predicate = r => r.Tags.Contains("live"),
             });
