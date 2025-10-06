@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi.Models;
-
 
 internal static class WebApplicationBuilderExtensions
 {
@@ -123,6 +123,8 @@ internal static class WebApplicationBuilderExtensions
             })
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, null!);
 
+        builder.Services.AddFeatureManagement();
+        
         return builder;
     }
 
