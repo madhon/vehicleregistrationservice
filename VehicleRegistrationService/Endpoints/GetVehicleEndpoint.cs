@@ -9,7 +9,7 @@ internal static partial class GetVehicleEndpoint
             .WithDescription("Retrieves info about the specified vehicle")
             .WithTags("vehicleinfo")
             .Produces<VehicleInfo>()
-            .ProducesProblem(statusCode: 400)
+            .ProducesProblem(statusCode: StatusCodes.Status400BadRequest)
             .Produces<UnauthorizedHttpResult>()
             .RequireAuthorization();
 

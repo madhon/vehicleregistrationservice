@@ -8,7 +8,7 @@ internal static class EnvEndpoint
             {
                 var thisEnv = new
                 {
-                    ApplicationName = hostEnvironment?.ApplicationName,
+                    hostEnvironment?.ApplicationName,
                     Environment = hostEnvironment?.EnvironmentName,
                 };
 

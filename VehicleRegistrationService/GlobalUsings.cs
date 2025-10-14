@@ -3,6 +3,7 @@ global using VehicleRegistrationService.Model;
 global using VehicleRegistrationService.Model.Validators;
 global using VehicleRegistrationService.Repositories;
 global using VehicleRegistrationService.Certificates;
+global using VehicleRegistrationService.Extensions;
 
 global using System.Security.Claims;
 global using System.Text;

@@ -16,6 +16,7 @@ internal static partial class LoginEndpoint
             .WithTags("login")
             .Produces<LoginResponse>()
             .Produces<UnauthorizedHttpResult>()
+            .Produces<ValidationProblem>()
             .AllowAnonymous();
 
         return builder;
@@ -26,6 +27,7 @@ internal static partial class LoginEndpoint
             IValidator<LoginRequest> validator,
             ILoggerFactory loggerFactory,
             SigningAudienceCertificate signingAudienceCertificate,
+            TimeProvider timeProvider,
             IOptions<JwtOptions> options)
     {
         var logger = loggerFactory.CreateLogger("LoginEndpointV2");
@@ -44,12 +46,10 @@ internal static partial class LoginEndpoint
 
         LogUserLoginSuccess(logger, req.UserName);
 
-        var now = DateTimeOffset.UtcNow;
-        var expiresAt = now.AddMinutes(10);
+        var now = timeProvider.GetUtcNow();
+        var expiresAt = now.AddMinutes(120);
         var unixTimeSeconds = now.ToUnixTimeSeconds();
 
-        //var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.Secret));
-        //var signInCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
         var descriptor = new SecurityTokenDescriptor
         {
             Issuer = options.Value.ValidIssuer,

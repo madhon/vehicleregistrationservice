@@ -1,9 +1,13 @@
 ﻿namespace VehicleRegistrationService.Extensions;
 
 using FluentValidation.Results;
+using ServiceScan.SourceGenerator;
 
-internal static class FluentValidationExtensions
+internal static partial class FluentValidationExtensions
 {
+    [GenerateServiceRegistrations(AssignableTo = typeof(IValidator<>), Lifetime = ServiceLifetime.Singleton)]
+    public static partial IServiceCollection AddValidators(this IServiceCollection services);
+
     public static IDictionary<string, string[]> ToDictionary(this ValidationResult validationResult)
     {
         return validationResult.Errors

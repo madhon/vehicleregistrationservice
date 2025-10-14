@@ -1,12 +1,18 @@
 namespace VehicleRegistrationService.Model;
 
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions) : IConfigureNamedOptions<JwtBearerOptions>
+internal sealed class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions jwtOptions = jwtOptions.Value;
+    private readonly SigningIssuerCertificate issuerCertificate;
+    private readonly JwtOptions jwtOptions;
+
+    public ConfigureJwtBearerOptions(SigningIssuerCertificate issuerCertificate, IOptions<JwtOptions> jwtOptions)
+    {
+        this.issuerCertificate = issuerCertificate;
+        this.jwtOptions = jwtOptions.Value;
+    }
 
     public void Configure(JwtBearerOptions options)
     {
@@ -20,14 +26,6 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
             return;
         }
 
-        var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
-
-        var publicKeyXml = File.ReadAllText("./public_key.xml");
-#pragma warning disable CA2000
-        var rsa = new RSACryptoServiceProvider();
-#pragma warning restore CA2000
-
-        rsa.FromXmlString(publicKeyXml);
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -35,8 +33,9 @@ internal sealed class ConfigureJwtBearerOptions(IOptions<JwtOptions> jwtOptions)
             ValidIssuer = jwtOptions.ValidIssuer,
             ValidateAudience = true,
             ValidAudience = jwtOptions.ValidAudience,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new RsaSecurityKey(rsa),
+            IssuerSigningKey = issuerCertificate.GetIssuerSigningKey(),
             ClockSkew = TimeSpan.FromSeconds(15),
             RequireExpirationTime = true,
         };
