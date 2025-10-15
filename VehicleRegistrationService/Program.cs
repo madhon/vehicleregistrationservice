@@ -4,6 +4,7 @@ builder.AddSerilog();
 builder.AddDefaultHealthChecks();
 builder.ConfigureOpenTelemetry();
 builder.Services.RegisterServices();
+builder.Services.AddFeatureManagementServices(builder.Configuration);
 
 var app = builder.Build();
 

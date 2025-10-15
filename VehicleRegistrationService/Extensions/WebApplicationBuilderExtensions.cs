@@ -68,8 +68,6 @@ internal static class WebApplicationBuilderExtensions
         services.AddOpenApiServices();
         services.AddAuthorisationServices();
 
-        services.AddFeatureManagement();
-
         return services;
     }
 }
