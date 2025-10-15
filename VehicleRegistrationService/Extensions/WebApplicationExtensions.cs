@@ -27,7 +27,6 @@ internal static class WebApplicationExtensions
         app.MapScalarApiReference(opts =>
         {
             opts.DefaultFonts = false;
-            opts.WithLayout(ScalarLayout.Modern);
             opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
             opts.WithDotNetFlag();
         });
