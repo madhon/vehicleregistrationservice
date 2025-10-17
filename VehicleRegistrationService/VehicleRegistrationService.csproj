@@ -79,7 +79,7 @@
     <PackageReference Include="Microsoft.OpenApi" Version="[1.6.28]" />
     <PackageReference Include="OpenFeature" Version="2.8.1" />
     <PackageReference Include="OpenFeature.Contrib.Provider.FeatureManagement" Version="0.1.1-preview" />
-    <PackageReference Include="OpenFeature.Hosting" Version="2.8.1" />
+    <PackageReference Include="OpenFeature.Hosting" Version="2.9.0" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.1" />
     <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.13.1-beta.1" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.13.1" />
