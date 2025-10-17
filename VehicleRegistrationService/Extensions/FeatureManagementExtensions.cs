@@ -13,7 +13,6 @@ internal static class FeatureManagementExtensions
         services.AddOpenFeature(featureBuilder =>
         {
             featureBuilder
-                .AddHostedFeatureLifecycle()
                 .AddProvider(_ =>
                 {
                     var openFeatureManagementProvider = new FeatureManagementProvider(configuration);
