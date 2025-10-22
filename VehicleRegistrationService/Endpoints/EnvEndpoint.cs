@@ -6,13 +6,9 @@ internal static class EnvEndpoint
     {
         builder.MapGet("env", (IWebHostEnvironment? hostEnvironment) =>
             {
-                var thisEnv = new
-                {
-                    hostEnvironment?.ApplicationName,
-                    Environment = hostEnvironment?.EnvironmentName,
-                };
+                var response = new EnvResponse(hostEnvironment?.ApplicationName, hostEnvironment?.EnvironmentName);
 
-                return Results.Ok(thisEnv);
+                return Results.Ok(response);
             })
             .AllowAnonymous()
             .WithName("env")

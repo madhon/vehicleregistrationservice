@@ -15,6 +15,7 @@
 
 [JsonSerializable(typeof(string))]
 [JsonSerializable(typeof(IEnumerable<KeyValuePair<string,string?>>))]
+[JsonSerializable(typeof(EnvResponse))]
 
 [JsonSerializable(typeof(ProblemHttpResult))]
 [JsonSerializable(typeof(ValidationProblem))]
