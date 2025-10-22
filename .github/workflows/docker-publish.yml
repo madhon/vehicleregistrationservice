@@ -68,6 +68,15 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Install CoSign
+        uses: sigstore/cosign-installer@v4
+        
+      - name: Sign Docker image
+        run: |
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        env:
+          COSIGN_EXPERIMENTAL: 1
           
       - name: Scan Docker image (Anchore)
         uses: anchore/scan-action@v7
