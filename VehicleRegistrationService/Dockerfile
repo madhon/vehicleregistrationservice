@@ -1,4 +1,4 @@
-ARG RUNTIMEVERSION=9.0-noble-chiseled-amd64
+ARG RUNTIMEVERSION=10.0-noble-chiseled-amd64
 ARG SDKVERSION=9.0.306-noble-amd64
 
 
