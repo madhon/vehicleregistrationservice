@@ -86,7 +86,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="9.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.10" />
     <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="9.10.0" />
-    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.1.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="[1.6.28]" />
     <PackageReference Include="OpenFeature" Version="2.9.0" />
     <PackageReference Include="OpenFeature.Contrib.Provider.FeatureManagement" Version="0.1.1-preview" />
