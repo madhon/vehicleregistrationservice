@@ -3,6 +3,7 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi.Models;
+using Scalar.AspNetCore;
 
 internal static class OpenApiExtensions
 {
@@ -35,10 +36,10 @@ internal static class OpenApiExtensions
 
                 return Task.CompletedTask;
             });
+            options.AddScalarTransformers();
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
             options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.OrdinalIgnoreCase));
         });
-
 
         return services;
     }
@@ -78,5 +79,4 @@ internal static class OpenApiExtensions
             return Task.CompletedTask;
         });
     }
-    
 }
