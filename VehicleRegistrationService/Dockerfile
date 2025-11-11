@@ -7,7 +7,6 @@ ENV HUSKY=0
 
 WORKDIR /src
 
-COPY ["global.json", "global.json"]
 COPY ["VehicleRegistrationService.csproj", "VehicleRegistrationService.csproj"]
 
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
