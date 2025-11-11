@@ -53,7 +53,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleFirstAndLastNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
 
         var list = new List<string>();
 
@@ -67,7 +67,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleLastNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
         var list = new List<string>();
 
         for (var index = 0; index < count; ++index)
@@ -80,7 +80,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleFemaleFirstAndLastNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
 
         var list = new List<string>();
 
@@ -94,7 +94,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleMaleFirstAndLastNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
 
         var list = new List<string>();
 
@@ -108,7 +108,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleFemaleFirstNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
 
         var list = new List<string>();
 
@@ -122,7 +122,7 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
 
     public IEnumerable<string> GenerateMultipleMaleFirstNames(int count)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(0, count);
+        ArgumentOutOfRangeException.ThrowIfLessThan(0, count, nameof(count));
 
         var list = new List<string>();
 
