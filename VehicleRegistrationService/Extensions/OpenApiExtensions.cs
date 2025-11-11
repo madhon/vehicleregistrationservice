@@ -2,7 +2,7 @@
 
 using Asp.Versioning;
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 
 internal static class OpenApiExtensions
@@ -38,13 +38,13 @@ internal static class OpenApiExtensions
             });
             options.AddScalarTransformers();
             options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
-            options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.OrdinalIgnoreCase));
+            //options.CustomSchemaIds(x => x.FullName?.Replace("+", ".", StringComparison.OrdinalIgnoreCase));
         });
 
         return services;
     }
 
-    private static OpenApiOptions CustomSchemaIds(this OpenApiOptions config,
+    /*private static OpenApiOptions CustomSchemaIds(this OpenApiOptions config,
         Func<Type, string?> typeSchemaTransformer,
         bool includeValueTypes = false)
     {
@@ -78,5 +78,5 @@ internal static class OpenApiExtensions
 
             return Task.CompletedTask;
         });
-    }
+    }*/
 }
