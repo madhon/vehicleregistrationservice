@@ -16,9 +16,9 @@ internal static class ConfEndpoint
 
     private static async Task<Results<Ok<IEnumerable<KeyValuePair<string, string?>>>, BadRequest>> HandleConfig(
         IConfiguration? config,
-        IFeatureClient featureClient)
+        IFeatureManager featureClient)
     {
-        if (await featureClient.GetBooleanValueAsync(FeatureFlags.DisableConfEndpoint, defaultValue: false))
+        if (!await featureClient.IsEnabledAsync(FeatureFlags.DisableConfEndpoint))
         {
             return TypedResults.BadRequest();
         }

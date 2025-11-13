@@ -1,10 +1,7 @@
 ﻿namespace VehicleRegistrationService;
 
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.FeatureManagement;
 
 internal static class WebApplicationBuilderExtensions
 {
@@ -65,6 +62,7 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddProblemDetails();
 
+        services.AddFeatureManagementServices();
         services.AddOpenApiServices();
         services.AddAuthorisationServices();
 

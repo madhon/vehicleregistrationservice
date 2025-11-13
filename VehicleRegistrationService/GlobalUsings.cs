@@ -14,5 +14,5 @@ global using System.Globalization;
 global using Microsoft.Extensions.Options;
 global using Microsoft.AspNetCore.Http.HttpResults;
 
-global using OpenFeature;
+global using Microsoft.FeatureManagement;
 global using FluentValidation;
