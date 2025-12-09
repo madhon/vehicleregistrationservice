@@ -93,8 +93,8 @@
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.11.1" />
-    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.11.1" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.11.2" />
+    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.11.2" />
     <PackageReference Include="Serilog" Version="4.3.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
