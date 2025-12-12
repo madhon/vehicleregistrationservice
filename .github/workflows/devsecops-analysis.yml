@@ -35,7 +35,7 @@ jobs:
         sarif_file: ${{ steps.msdo.outputs.sarifFile }}
         
     - name: Upload alerts artifact
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: alerts
         path: ${{ steps.msdo.outputs.sarifFile }}        
