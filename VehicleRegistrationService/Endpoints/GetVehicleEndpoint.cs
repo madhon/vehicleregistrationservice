@@ -16,7 +16,7 @@ internal static partial class GetVehicleEndpoint
         return builder;
     }
 
-    private static Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult>
+    private static async Task<Results<Ok<VehicleInfo>, ProblemHttpResult, UnauthorizedHttpResult>>
         HandleGetVehicleEndpoint(string licenseNumber,  ILoggerFactory loggerFactory, IVehicleInfoRepository vehicleInfoRepository)
     {
         var logger = loggerFactory.CreateLogger("GetVehicleEndpointV2");
@@ -29,7 +29,7 @@ internal static partial class GetVehicleEndpoint
             return TypedResults.Problem("Restricted License Plate", statusCode: StatusCodes.Status400BadRequest);
         }
 
-        var info = vehicleInfoRepository.GetVehicleInfo(licenseNumber);
+        var info = await vehicleInfoRepository.GetVehicleInfo(licenseNumber);
         return TypedResults.Ok(info);
     }
 

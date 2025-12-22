@@ -41,10 +41,10 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         nameGenerator = new PersonNameGenerator();
     }
 
-    public VehicleInfo GetVehicleInfo(string licenseNumber)
+    public async ValueTask<VehicleInfo> GetVehicleInfo(string licenseNumber)
     {
         // simulate slow IO
-        Thread.Sleep(RandomNumberGenerator.GetInt32(5, 200));
+        await Task.Delay(RandomNumberGenerator.GetInt32(5, 200));
 
         // get random vehicle info
         var brand = GetRandomBrand();

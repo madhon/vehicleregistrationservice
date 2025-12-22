@@ -4,5 +4,5 @@ using VehicleRegistrationService.Model;
 
 internal interface IVehicleInfoRepository
 {
-    VehicleInfo GetVehicleInfo(string licenseNumber);
+    ValueTask<VehicleInfo> GetVehicleInfo(string licenseNumber);
 }
