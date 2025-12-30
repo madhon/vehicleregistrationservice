@@ -66,8 +66,8 @@
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
-    <PackageReference Include="Meziantou.Analyzer" Version="2.0.264">
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.1" />
+    <PackageReference Include="Meziantou.Analyzer" Version="2.0.266">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
