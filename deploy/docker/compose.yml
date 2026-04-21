@@ -16,7 +16,7 @@ services:
    - "traefik.http.routers.vrsvc.entrypoints=http"
 
  envoyproxy:
-  image: envoyproxy/envoy:distroless-v1.36.0
+  image: envoyproxy/envoy:distroless-v1.37.2
   pull_policy: always
   restart: unless-stopped
   container_name: envoyproxy
@@ -34,7 +34,7 @@ networks:
 
 
 # reverseproxy:
-#  image: traefik:v3.3
+#  image: traefik:v3.6
 #  pull_policy: always
 #  restart: unless-stopped
 #  container_name: traefikproxy
