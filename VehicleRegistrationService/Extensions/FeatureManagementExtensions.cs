@@ -1,12 +1,26 @@
 ﻿namespace VehicleRegistrationService.Extensions;
 
 using Microsoft.FeatureManagement;
+using OpenFeature;
+using OpenFeature.Contrib.Providers.FeatureManagement;
 
 internal static class FeatureManagementExtensions
 {
-    public static IServiceCollection AddFeatureManagementServices(this IServiceCollection services)
+    public static TBuilder AddFeatureManagementServices<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
-        services.AddFeatureManagement();
-        return services;
+        builder.Services.AddFeatureManagement();
+
+        builder.Services.AddOpenFeature(featureBuilder =>
+        {
+            featureBuilder
+                //.AddHostedFeatureLifecycle()
+                .AddProvider(_ =>
+                {
+                    var openFeatureManagementProvider = new FeatureManagementProvider(builder.Configuration);
+                    return openFeatureManagementProvider;
+                });
+        });
+
+        return builder;
     }
 }

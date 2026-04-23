@@ -62,7 +62,6 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddProblemDetails();
 
-        services.AddFeatureManagementServices();
         services.AddOpenApiServices();
         services.AddAuthorisationServices();
 
