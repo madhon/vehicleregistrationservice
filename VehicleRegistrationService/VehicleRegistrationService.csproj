@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.52">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.56">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
