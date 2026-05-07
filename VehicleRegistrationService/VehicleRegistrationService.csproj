@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.63">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.72">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -96,8 +96,8 @@
     <PackageReference Include="OpenFeature" Version="2.13.0" />
     <PackageReference Include="OpenFeature.Hosting" Version="2.13.0" />
     <PackageReference Include="OpenFeature.Contrib.Provider.FeatureManagement" Version="0.1.2-preview" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.14.10" />
-    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.14.10" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.14.11" />
+    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.14.11" />
     <PackageReference Include="Serilog" Version="4.3.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
