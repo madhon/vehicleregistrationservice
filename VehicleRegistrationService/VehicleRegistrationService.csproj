@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.96">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.98">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -87,7 +87,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.8" />
     <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="10.6.0" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />
-    <PackageReference Include="Microsoft.OpenApi" Version="[2.7.4,3)" />
+    <PackageReference Include="Microsoft.OpenApi" Version="[2.7.6,3)" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
     <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.15.3-beta.1" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3" />
