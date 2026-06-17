@@ -32,7 +32,7 @@ internal static class WebApplicationBuilderExtensions
         services.AddValidators();
 
         services.AddSingleton<TimeProvider>(TimeProvider.System);
-        services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
+        services.AddSingleton<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
         services.AddSingleton<SigningAudienceCertificate>();
         services.AddSingleton<SigningIssuerCertificate>();
 

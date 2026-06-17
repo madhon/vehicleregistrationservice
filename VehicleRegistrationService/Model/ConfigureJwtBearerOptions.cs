@@ -44,7 +44,7 @@ internal sealed class ConfigureJwtBearerOptions : IConfigureNamedOptions<JwtBear
         {
             OnAuthenticationFailed = context =>
             {
-                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                if (context.Exception is SecurityTokenExpiredException)
                 {
                     context.Response.Headers.Append("Token-Expired", "true");
                 }

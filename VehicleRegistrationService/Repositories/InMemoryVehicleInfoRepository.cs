@@ -2,6 +2,7 @@
 
 using RandomNameGeneratorLibrary;
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading;
@@ -17,7 +18,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         "Kia", "Citroën", "Suzuki", "Mitsubishi", "Fiat", "Toyota", "Opel"
     ];
 
-    private readonly Dictionary<string, string[]> models = new(StringComparer.OrdinalIgnoreCase)
+    private readonly FrozenDictionary<string, string[]> models =  new Dictionary<string, string[]>(StringComparer.OrdinalIgnoreCase)
     {
         { "Mercedes", ["A Class", "B Class", "C Class", "E Class", "SLS", "SLK"] },
         { "Toyota", ["Yaris", "CHR", "Rav 4", "Prius", "Celica"] },
@@ -34,7 +35,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         { "BMW", ["1 Series", "2 Series", "3 Series", "5 Series", "7 Series", "X5"] },
         { "Fiat", ["500", "Panda", "Punto", "Tipo", "Multipla"] },
         { "Opel", ["Karl", "Corsa", "Astra", "Crossland X", "Insignia"] },
-    };
+    }.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 
     public InMemoryVehicleInfoRepository()
     {
@@ -51,8 +52,7 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
         var model = GetRandomModel(brand);
 
         // get random owner info
-        var ownerName = nameGenerator.GenerateRandomFirstAndLastName();
-        var ownerEmail = $"{ownerName.Replace(' ', '.')}@outlook.com";
+        var (ownerName, ownerEmail) = nameGenerator.GenerateRandomOwnerContact();
 
         if (licenseNumber.Equals("K27JSD", StringComparison.OrdinalIgnoreCase))
         {
@@ -76,7 +76,9 @@ internal sealed class InMemoryVehicleInfoRepository : IVehicleInfoRepository
 
     private string GetRandomModel(string brand)
     {
-        var rndModels = this.models[brand];
+        var rndModels = models[brand];
         return rndModels[RandomNumberGenerator.GetInt32(rndModels.Length)];
     }
+
+
 }

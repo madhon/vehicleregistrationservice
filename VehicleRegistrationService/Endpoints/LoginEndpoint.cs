@@ -56,7 +56,7 @@ internal static partial class LoginEndpoint
             Audience = options.Value.ValidAudience,
             IssuedAt = now.DateTime,
             Expires = expiresAt.DateTime,
-            Claims = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+            Claims = new Dictionary<string, object>(capacity: 3, StringComparer.OrdinalIgnoreCase)
             {
                 { JwtRegisteredClaimNames.Iat, unixTimeSeconds.ToString(CultureInfo.InvariantCulture) },
                 { JwtRegisteredClaimNames.Jti, Guid.CreateVersion7().ToString() },

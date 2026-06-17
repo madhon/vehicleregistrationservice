@@ -11,6 +11,8 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
     private static string[] _femaleFirstNames = null!;
     private static string[] _lastNames = null!;
 
+    private const string EmailDomain = "@outlook.com";
+
     public PersonNameGenerator()
     {
         InitNames();
@@ -162,5 +164,32 @@ internal sealed class PersonNameGenerator : BaseNameGenerator, IPersonNameGenera
         }
 
         _lastNames = ReadResourceByLine(LastNameFile);
+    }
+
+
+    public (string FullName, string Email) GenerateRandomOwnerContact()
+    {
+        var first = GenerateRandomFirstName();
+        var last = GenerateRandomLastName();
+        var fullName = string.Create(
+            first.Length + 1 + last.Length,
+            (first, last),
+            static (span, state) =>
+            {
+                state.first.AsSpan().CopyTo(span);
+                span[state.first.Length] = ' ';
+                state.last.AsSpan().CopyTo(span[(state.first.Length + 1)..]);
+            });
+        var email = string.Create(
+            first.Length + 1 + last.Length + EmailDomain.Length,
+            (first, last),
+            static (span, state) =>
+            {
+                state.first.AsSpan().CopyTo(span);
+                span[state.first.Length] = '.';
+                state.last.AsSpan().CopyTo(span[(state.first.Length + 1)..]);
+                EmailDomain.AsSpan().CopyTo(span[(state.first.Length + 1 + state.last.Length)..]);
+            });
+        return (fullName, email);
     }
 }
