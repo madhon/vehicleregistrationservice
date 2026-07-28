@@ -9,11 +9,12 @@ internal static class SerilogExtensions
 {
     public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string sectionName = "Serilog")
     {
-        var serilogOptions = new SerilogOptions();
-        builder.Configuration.GetSection(sectionName).Bind(serilogOptions);
+        builder.Services.AddOptions<SerilogOptions>().BindConfiguration(sectionName);
 
-        builder.Services.AddSerilog(loggerConfiguration =>
+        builder.Services.AddSerilog((sp, loggerConfiguration) =>
         {
+            var serilogOptions = sp.GetRequiredService<IOptions<SerilogOptions>>().Value;
+
             loggerConfiguration
                 .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
                 .Enrich.FromLogContext()
