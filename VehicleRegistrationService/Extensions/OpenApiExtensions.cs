@@ -16,7 +16,7 @@ internal static class OpenApiExtensions
             opt.DefaultApiVersion = new ApiVersion(1, 0);
             opt.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
         });
-        services.AddEndpointsApiExplorer();
+
         services.AddOpenApi(options =>
         {
             options.AddDocumentTransformer((document, _, _) =>
