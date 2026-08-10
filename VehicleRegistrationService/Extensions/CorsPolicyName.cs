@@ -2,5 +2,5 @@
 
 internal static class CorsPolicyName
 {
-    public const string AllowAll = "AllowAll";
+    public const string Default = "Default";
 }

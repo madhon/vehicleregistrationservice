@@ -10,10 +10,11 @@ internal static class WebApplicationExtensions
     public static void ConfigureApplication(this WebApplication app)
     {
         app.UseForwardedHeaders();
+        app.UseAppSecurityHeaders();
 
         app.UseSerilogRequestLogging();
 
-        app.UseCors(CorsPolicyName.AllowAll);
+        app.UseCors(CorsPolicyName.Default);
 
         app.UseExceptionHandler();
         app.UseStatusCodePages();
@@ -24,11 +25,12 @@ internal static class WebApplicationExtensions
         }
 
         app.MapOpenApi().CacheOutput();
-        app.MapScalarApiReference(opts =>
+        app.MapScalarApiReference((opts, httpContext) =>
         {
             opts.DefaultFonts = false;
             opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
             opts.WithDotNetFlag();
+            opts.WithNonce();
         });
 
         app.UseAuthentication();

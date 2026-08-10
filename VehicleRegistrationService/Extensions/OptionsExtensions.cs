@@ -13,6 +13,13 @@ internal static class OptionsExtensions
         services
             .AddSingleton<IValidateOptions<JwtOptions>, JwtOptionsValidator>();
 
+        services
+            .AddOptions<CorsOptions>()
+            .BindConfiguration(CorsOptions.SectionName);
+
+        services
+            .AddSingleton<IConfigureOptions<Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions>, ConfigureCorsOptions>();
+
         return services;
     }
 

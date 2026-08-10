@@ -36,15 +36,7 @@ internal static class WebApplicationBuilderExtensions
         services.AddSingleton<SigningAudienceCertificate>();
         services.AddSingleton<SigningIssuerCertificate>();
 
-        services.AddCors(options =>
-        {
-            options.AddPolicy(CorsPolicyName.AllowAll, corsBuilder =>
-            {
-                corsBuilder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            });
-        });
+        services.AddAppCors();
 
         services.AddOutputCache(options =>
         {
