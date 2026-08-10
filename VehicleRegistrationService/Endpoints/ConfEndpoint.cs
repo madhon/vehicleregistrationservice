@@ -6,6 +6,7 @@ internal static class ConfEndpoint
     {
         builder.MapGet("conf", HandleConfig )
             .Produces<UnauthorizedHttpResult>()
+            .Produces<BadRequest>()
             .RequireAuthorization()
             .WithName("conf")
             .WithDescription("Get Config Info")
