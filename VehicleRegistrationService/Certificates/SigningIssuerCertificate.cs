@@ -22,7 +22,7 @@ internal sealed class SigningIssuerCertificate : IDisposable
 
     private RsaSecurityKey CreateRsaSecurityKey()
     {
-        var privateXmlKey = File.ReadAllText("./private_key.xml");
+        var privateXmlKey = File.ReadAllText("./public_key.xml");
         rsa.FromXmlString(privateXmlKey);
 
         return new RsaSecurityKey(rsa);

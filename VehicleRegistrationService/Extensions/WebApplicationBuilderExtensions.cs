@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.ResponseCompression;
 
 internal static class WebApplicationBuilderExtensions
 {
-    private static readonly string[] second = new[]
-            {
-                "application/json",
+    private static readonly string[] second =
+    [
+        "application/json",
                 "application/problem+json",
                 "application/vnd.api+json",
-            };
+    ];
 
     public static IServiceCollection RegisterServices(this IServiceCollection services)
     {
@@ -64,6 +64,11 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddOpenApiServices();
         services.AddAuthorisationServices();
+
+        services.AddAppRateLimiting();
+
+        services.AddHybridCache();
+        services.AddSingleton<IJwtIdStore, HybridJwtIdStore>();
 
         return services;
     }

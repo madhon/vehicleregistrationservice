@@ -12,8 +12,6 @@ internal sealed class JwtOptions
     [Required, MinLength(1)]
     public string ValidIssuer { get; set; } = string.Empty;
 
-    public string Secret { get; set; } = string.Empty;
-
     public string EcDsaPrivate { get; set; } = string.Empty;
     public string EcDsaPublic { get; set; } = string.Empty;
 }

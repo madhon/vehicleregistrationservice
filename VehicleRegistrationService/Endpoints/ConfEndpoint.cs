@@ -1,7 +1,5 @@
 ﻿namespace VehicleRegistrationService.Endpoints;
 
-using OpenFeature;
-
 internal static class ConfEndpoint
 {
     public static IEndpointRouteBuilder MapConfEndpoint(this IEndpointRouteBuilder builder)

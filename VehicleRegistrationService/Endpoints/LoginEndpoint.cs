@@ -17,22 +17,26 @@ internal static partial class LoginEndpoint
             .Produces<LoginResponse>()
             .Produces<UnauthorizedHttpResult>()
             .Produces<ValidationProblem>()
-            .AllowAnonymous();
+            .AllowAnonymous()
+            .RequireRateLimiting("login");
 
         return builder;
     }
 
-    private static Results<Ok<LoginResponse>, UnauthorizedHttpResult, ValidationProblem>
+    private static async Task<Results<Ok<LoginResponse>, UnauthorizedHttpResult, ValidationProblem>>
         HandleLogin(LoginRequest req,
             IValidator<LoginRequest> validator,
             ILoggerFactory loggerFactory,
+            IFeatureClient featureClient,
+            IJwtIdStore jwtIdStore,
             SigningAudienceCertificate signingAudienceCertificate,
             TimeProvider timeProvider,
-            IOptions<JwtOptions> options)
+            IOptions<JwtOptions> options,
+            CancellationToken cancellationToken)
     {
         var logger = loggerFactory.CreateLogger("LoginEndpointV2");
 
-        var validationResult = validator.Validate(req);
+        var validationResult = await validator.ValidateAsync(req, cancellationToken);
         if (!validationResult.IsValid)
         {
             return TypedResults.ValidationProblem(validationResult.ToDictionary());
@@ -49,6 +53,7 @@ internal static partial class LoginEndpoint
         var now = timeProvider.GetUtcNow();
         var expiresAt = now.AddMinutes(120);
         var unixTimeSeconds = now.ToUnixTimeSeconds();
+        var jti = Guid.CreateVersion7().ToString();
 
         var descriptor = new SecurityTokenDescriptor
         {
@@ -59,13 +64,22 @@ internal static partial class LoginEndpoint
             Claims = new Dictionary<string, object>(capacity: 3, StringComparer.OrdinalIgnoreCase)
             {
                 { JwtRegisteredClaimNames.Iat, unixTimeSeconds.ToString(CultureInfo.InvariantCulture) },
-                { JwtRegisteredClaimNames.Jti, Guid.CreateVersion7().ToString() },
+                { JwtRegisteredClaimNames.Jti, jti },
                 { ClaimTypes.Name, "jon" },
             },
             SigningCredentials = signingAudienceCertificate.GetAudienceSigningKey(),
         };
 
         var token = TokenHandler.CreateToken(descriptor);
+
+        if (await featureClient.GetBooleanValueAsync(
+                FeatureFlags.JwtJtiReplayControl,
+                defaultValue: false,
+                cancellationToken: cancellationToken))
+        {
+            await jwtIdStore.RegisterAsync(jti, expiresAt, cancellationToken);
+        }
+
         return TypedResults.Ok(new LoginResponse { Token = token, ExpiresAt = expiresAt.DateTime });
     }
 
