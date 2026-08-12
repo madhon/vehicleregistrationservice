@@ -59,7 +59,13 @@ internal static class WebApplicationBuilderExtensions
 
         services.AddAppRateLimiting();
 
-        services.AddHybridCache();
+        services.AddFusionCache().WithDefaultEntryOptions(new FusionCacheEntryOptions
+            {
+                Duration = TimeSpan.FromMinutes(20),
+                DistributedCacheDuration = TimeSpan.FromMinutes(60),
+            })
+            .AsHybridCache();
+
         services.AddSingleton<IJwtIdStore, HybridJwtIdStore>();
 
         return services;

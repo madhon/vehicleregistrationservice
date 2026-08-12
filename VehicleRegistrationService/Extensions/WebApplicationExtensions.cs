@@ -24,8 +24,8 @@ internal static class WebApplicationExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        app.MapOpenApi().CacheOutput();
-        app.MapScalarApiReference((opts, httpContext) =>
+        app.MapOpenApi().WithDocumentPerVersion().CacheOutput();
+        app.MapScalarApiReference((opts) =>
         {
             opts.DefaultFonts = false;
             opts.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);

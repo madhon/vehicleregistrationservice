@@ -18,3 +18,4 @@ global using Microsoft.Extensions.Caching.Hybrid;
 
 global using OpenFeature;
 global using FluentValidation;
+global using ZiggyCreatures.Caching.Fusion;

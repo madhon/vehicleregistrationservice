@@ -24,6 +24,7 @@ internal static class OpenTelemetryExtensions
             {
                 metrics
                     .AddAspNetCoreInstrumentation()
+                    .AddFusionCacheInstrumentation()
                     .AddRuntimeInstrumentation()
                     .AddBuiltInMeters()
                     .AddCustomMeters();
@@ -44,7 +45,8 @@ internal static class OpenTelemetryExtensions
                                   StringComparison.OrdinalIgnoreCase)
                               || httpContext.Request.Path.StartsWithSegments(AlivenessEndpointPath,
                                   StringComparison.OrdinalIgnoreCase));
-                    });
+                    })
+                    .AddFusionCacheInstrumentation();
             });
 
         builder.AddOpenTelemetryExporters();

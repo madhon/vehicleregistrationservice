@@ -13,7 +13,11 @@
     <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
     <OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
   </PropertyGroup>
-    
+
+  <PropertyGroup>
+    <Description>Vehicle Registration API</Description>
+  </PropertyGroup>
+
     <PropertyGroup>
         <InvariantGlobalization>true</InvariantGlobalization>
     </PropertyGroup>
@@ -66,27 +70,22 @@
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Http" Version="10.2.1" />
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.141">
+    <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.1" />
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.149">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="10.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="10.0.11" />
     <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="10.8.0" />
-    <!--<PackageReference Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>-->
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="4.6.0" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.22.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="10.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="10.9.0" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="Microsoft.OpenApi" Version="[2.11.0,3.0.0)" />
     <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.17.0" />
@@ -123,6 +122,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ZiggyCreatures.FusionCache" Version="2.6.0" />
+    <PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="2.6.0" />
   </ItemGroup>
   <Target Name="Husky" BeforeTargets="Restore;CollectPackageReferences" Condition="'$(HUSKY)' != 0">
     <Exec Command="dotnet tool restore" StandardOutputImportance="Low" StandardErrorImportance="High" />
