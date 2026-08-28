@@ -85,7 +85,7 @@ jobs:
           COSIGN_EXPERIMENTAL: 1
           
       - name: Scan Docker image (Anchore)
-        uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2 # v7.4.0
+        uses: anchore/scan-action@8964e60c6fabdb85fdbbbfd9834d8f19c97a3086 # v7.4.1
         id: anchore-scan
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
@@ -93,7 +93,7 @@ jobs:
           output-format: 'sarif'
 
       - name: Upload Anchore results to GitHub
-        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28 # v4.37.8
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
         with:
           sarif_file: ${{ steps.anchore-scan.outputs.sarif }}
           
@@ -109,7 +109,7 @@ jobs:
           version: 'v0.74.0'
       
       - name: Upload Trivy results to GitHub
-        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28 # v4.37.8
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
         with:
           sarif_file: 'trivy-results.sarif'
 
