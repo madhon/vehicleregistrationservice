@@ -80,7 +80,7 @@ jobs:
         
       - name: Sign Docker image
         run: |
-          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         env:
           COSIGN_EXPERIMENTAL: 1
           
