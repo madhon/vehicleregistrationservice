@@ -28,11 +28,6 @@ internal static class SerilogExtensions
                 loggerConfiguration.WriteTo.Async(writeTo =>
                     writeTo.Console(outputTemplate: serilogOptions.LogTemplate, formatProvider: CultureInfo.InvariantCulture));
             }
-
-            if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
-            {
-                loggerConfiguration.WriteTo.Seq(serilogOptions.SeqUrl, formatProvider: CultureInfo.InvariantCulture);
-            }
         });
 
         return builder;
@@ -41,8 +36,6 @@ internal static class SerilogExtensions
     internal sealed class SerilogOptions
     {
         public bool UseConsole { get; set; } = true;
-        public string? SeqUrl { get; set; }
-        public string? LokiUrl { get; set; }
 
         public string LogTemplate { get; set; } =
             "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level:u3} - {Message:lj}{NewLine}{Exception}";
