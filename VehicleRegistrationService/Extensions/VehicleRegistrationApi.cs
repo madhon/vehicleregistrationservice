@@ -9,7 +9,7 @@ internal static class VehicleRegistrationApi
         routes.MapGet("/", () => Results.LocalRedirect("~/scalar/v1")).ExcludeFromDescription();
 
         var api = routes.NewVersionedApi("VehicleRegistrationService");
-        var group = api.MapGroup("api/");
+        var group = api.MapGroup("api/").WithGroupName("v1");
 
         group.MapLoginEndpoint();
         group.MapGetVehicleInfoEndpoint();

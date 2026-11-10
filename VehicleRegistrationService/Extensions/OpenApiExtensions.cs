@@ -13,14 +13,11 @@ internal static class OpenApiExtensions
         {
             opt.ReportApiVersions = true;
             opt.AssumeDefaultVersionWhenUnspecified = true;
-            opt.ApiVersionReader = ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
-        })
-            .AddApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-                options.SubstituteApiVersionInUrl = true;
-            })
-            .AddOpenApi(options => options.Document.AddScalarTransformers());
+            opt.ApiVersionReader =
+                ApiVersionReader.Combine(new QueryStringApiVersionReader(), new UrlSegmentApiVersionReader());
+        });
+
+        services.AddOpenApi("v1", options => options.AddScalarTransformers());
 
         return services;
     }

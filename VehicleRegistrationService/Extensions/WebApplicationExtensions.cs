@@ -24,7 +24,7 @@ internal static class WebApplicationExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        app.MapOpenApi().WithDocumentPerVersion().CacheOutput();
+        app.MapOpenApi().CacheOutput();
         app.MapScalarApiReference((opts) =>
         {
             opts.DefaultFonts = false;

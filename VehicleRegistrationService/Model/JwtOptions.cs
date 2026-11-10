@@ -6,10 +6,10 @@ internal sealed class JwtOptions
 {
     public const string SectionName = "JWT";
 
-    [Required, MinLength(1)]
+    [Required, StringLength(1000, MinimumLength = 1)]
     public string ValidAudience { get; set; } = string.Empty;
 
-    [Required, MinLength(1)]
+    [Required, StringLength(1000, MinimumLength = 1)]
     public string ValidIssuer { get; set; } = string.Empty;
 
     public string EcDsaPrivate { get; set; } = string.Empty;

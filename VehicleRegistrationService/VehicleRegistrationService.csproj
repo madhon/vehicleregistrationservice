@@ -21,8 +21,13 @@
     <PropertyGroup>
         <InvariantGlobalization>true</InvariantGlobalization>
     </PropertyGroup>
-    
-    <ItemGroup>
+
+  <PropertyGroup>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+
+
+  <ItemGroup>
         <TrimmerRootAssembly Include="VehicleRegistrationService" />
         <TrimmerRootAssembly Include="Asp.Versioning.Http" />
         <TrimmerRootAssembly Include="Microsoft.FeatureManagement" />
@@ -70,7 +75,7 @@
     <EmbeddedResource Include="RandomNameGeneratorLibrary\Resources\places2k.txt.stripped" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.OpenApi" Version="10.2.3" />
+    <PackageReference Include="Asp.Versioning.Http" Version="10.2.3" />
     <PackageReference Include="Meziantou.Analyzer" Version="3.0.322">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

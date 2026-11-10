@@ -7,7 +7,6 @@ internal static class OptionsExtensions
         services
             .AddOptions<JwtOptions>()
             .BindConfiguration(JwtOptions.SectionName)
-            .ValidateDataAnnotations()
             .ValidateOnStart();
 
         services
