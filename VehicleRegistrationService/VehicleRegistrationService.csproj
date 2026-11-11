@@ -30,7 +30,6 @@
   <ItemGroup>
         <TrimmerRootAssembly Include="VehicleRegistrationService" />
         <TrimmerRootAssembly Include="Asp.Versioning.Http" />
-        <TrimmerRootAssembly Include="Microsoft.FeatureManagement" />
         <TrimmerRootAssembly Include="Serilog.Exceptions" />
     </ItemGroup>
     
