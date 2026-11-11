@@ -76,31 +76,31 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="10.2.3" />
-    <PackageReference Include="Meziantou.Analyzer" Version="3.0.322">
+    <PackageReference Include="Meziantou.Analyzer" Version="3.0.324">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.14" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
-    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="10.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.15" />
+    <PackageReference Include="Microsoft.Bcl.TimeProvider" Version="10.0.15" />
     <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.23.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.15" />
     <PackageReference Include="Microsoft.Extensions.Telemetry.Abstractions" Version="10.11.0" />
     <PackageReference Include="FluentValidation" Version="12.2.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="[2.13.0,3.0.0)" />
-    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.20.1" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.21.0" />
     <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.20.1-beta.1" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.20.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.21.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.20.2" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.20.1" />
     <PackageReference Include="OpenFeature" Version="2.14.1" />
     <PackageReference Include="OpenFeature.Hosting" Version="2.14.1" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.19.0" />
-    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.19.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.20.0" />
+    <PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.20.0" />
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
