@@ -10,7 +10,11 @@ WORKDIR /src
 COPY ["VehicleRegistrationService.csproj", "VehicleRegistrationService.csproj"]
 
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet restore "VehicleRegistrationService.csproj" -r linux-x64 /p:PublishReadyToRun=true
+    dotnet restore "VehicleRegistrationService.csproj" \
+      -r linux-x64 \
+      /p:SelfContained=true \
+      /p:PublishReadyToRun=true \
+      /p:PublishTrimmed=true
 
 COPY . .
 
@@ -25,7 +29,6 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
   /p:IncludeNativeLibrariesForSelfExtract=true \
   /p:InvariantGlobalization=true \
   /p:PublishReadyToRun=true \
-  /p:ProfileGuidedOptimization=pgodata \
   --no-restore \
   -o /app/publish
 
