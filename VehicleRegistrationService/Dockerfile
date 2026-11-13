@@ -1,5 +1,5 @@
-ARG RUNTIMEVERSION=11.0-noble-chiseled-amd64
-ARG SDKVERSION=11.0-noble-aot-amd64
+ARG RUNTIMEVERSION=11.0-resolute-chiseled-amd64
+ARG SDKVERSION=11.0-resolute-aot-amd64
 
 
 FROM mcr.microsoft.com/dotnet/sdk:$SDKVERSION  AS build
