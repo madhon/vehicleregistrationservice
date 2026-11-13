@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/VehicleRegistrationService/bin/Debug/net10.0/VehicleRegistrationService.dll",
+            "program": "${workspaceFolder}/VehicleRegistrationService/bin/Debug/net11.0/VehicleRegistrationService.dll",
             "args": [],
             "cwd": "${workspaceFolder}/VehicleRegistrationService",
             "stopAtEntry": false,

@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/VehicleRegistrationService.slnx"
+                "${workspaceFolder}/VehicleRegistrationService/VehicleRegistrationService.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
